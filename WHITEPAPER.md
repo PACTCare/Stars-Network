@@ -1,4 +1,4 @@
-# Cosmos
+# Stars Network
 **A Vision of a Distributed, Free and Collectible Web**
 
 Draft 0.1, May 2019, David Hawig, PACT Care B.V.
@@ -14,7 +14,7 @@ _If you want to help either join our **[discord server](https://discord.gg/VMj7P
 - [Network Space, the final frontier](#Network-Space,-the-final-frontier)
   - [Starlog Substrate](#Starlog-Substrate)
   - [Captain's Log BigchainDB](#Captain's-Log-BigchainDB)
-  - [Starspace: IPFS](#Starspace:-IPFS)
+  - [Starspace – IPFS](#Starspace-–-IPFS)
   - [Starbridge WebSocket Client](#Starbridge-WebSocket-Client)
 - [Incentive Stars](#Incentive-Stars)
 - [Governance The Federation](#Governance-The-Federation)
@@ -161,7 +161,7 @@ Rather than trying to find one single truth directly on the blockchain (e.g., to
 
 This means that content publishers store immutable metadata and unavailability data on the chain. Consumers can then decide which publishers (signatures) they trust and follow. In practice, this will be automatically archived by rules hard-coded into the interface (e.g., dweb.page). The benefit of the system is the immediate availability of information without the requirement of an additional voting system nor a filtering system, which takes individual preferences into account. In case it’s requested, a token-curated register or something similar can at any time be implement as smart contract on the Starlog layer.  
 
-### Starspace: IPFS
+### Starspace – IPFS
 
 In comparison with the previous layers, the Starspace stores every kind and size of data. Therefore, Starspace uses IPFS as the initial underlying technology layer. However, the metadata system can easily support other protocols and their respective interoperability. IPFS is a protocol to create a content-addressable, peer-to-peer method of storing data.
 
