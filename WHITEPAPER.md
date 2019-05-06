@@ -8,16 +8,16 @@ _If you want to help either join our **[discord server](https://discord.gg/VMj7P
 ## Table of Contents
 
 - [Abstract](#Abstract)
-- [Introduction: Shooting for the Stars](#Introduction:-Shooting-for-the-stars)
+- [Introduction Shooting for the Stars](#Introduction-Shooting-for-the-stars)
   - [Components](#Components)
-  - [Hypotheses ](#Hypotheses)
-- [Network: Space, the final frontier](#Network:-Space,-the-final-frontier)
-  - [Starlog: Substrate](#Starlog:-Substrate)
-  - [Captain's Log: BigchainDB](#Captain's-Log:-BigchainDB)
+  - [Hypotheses](#Hypotheses)
+- [Network Space, the final frontier](#Network-Space,-the-final-frontier)
+  - [Starlog Substrate](#Starlog-Substrate)
+  - [Captain's Log BigchainDB](#Captain's-Log-BigchainDB)
   - [Starspace: IPFS](#Starspace:-IPFS)
-  - [Starbridge: WebSocket Client](#Starbridge:-WebSocket-Client)
-- [Incentive: Stars](#Incentive:-Stars)
-- [Governance: The Federation](#Governance:-The-Federation)
+  - [Starbridge WebSocket Client](#Starbridge-WebSocket-Client)
+- [Incentive Stars](#Incentive-Stars)
+- [Governance The Federation](#Governance-The-Federation)
 - [Conclusion](#Conclusion)
 - [Citations](#citations)
 
@@ -29,7 +29,7 @@ As an initial setup, the Stars Network uses a Proof-of-Stake blockchain/smart co
 
 **The paper itself is under active development and represents a research project. It is neither intended to be a final design nor a product specification.** 
 
-## Introduction: Shooting for the Stars
+## Introduction Shooting for the Stars
 
 _“The Web as I envisaged it, we have not seen it yet.” Tim Berners-Lee_
 
@@ -69,23 +69,23 @@ This paper is based on three hypotheses and the resulting design principals. The
 
 **A collectible web - Users should be able to own, collect and be responsible for their digital content and data.** This whitepaper assumes that striving to achieve greater ownership of wealth is one of the driving factors behind human technological advancement. Therefore, digital content needs to be ownable and tradable. The discussion around the European copyright directive shows that the current system has multiple flaws, which need to be addressed. For example, once data is uploaded on the current version of the web users and companies quickly lose control over their data. Important to note here is that the ownership of digital data should be an optional requirement, which means users should still be able to create content completely anonymous. 
 
-## Network: Space, the final frontier
+## Network Space, the final frontier
 
 The network itself consists of a blockchain/smart contract layer called Starlog, an immutable and distributed database layer called Captain's log and a distributed storage layer called Starspace. By splitting the technology stack into different layers, each layer can be adapted according to their key requirements. For example, it is important that the Starlog layer has a high level of distribution and only handles the most important information. Therefore, the Captain's log can take care of the metadata more efficiently and has lower distribution requirements. 
 
-<img src="https://github.com/PACTCare/Stars-Network/images/stars_network_1.png" width="310px">
+<img src="https://github.com/PACTCare/Stars-Network/blob/master/images/stars_network_1.png" width="310px">
 
 To create a distributed and interoperable web, every layer can be replaced with different technologies, which also leads to unlimited scalability of the network. The image below shows different examples and how the layers might connect. 
 
-<img src="https://github.com/PACTCare/Stars-Network/images/stars_network_2.png" width="310px">
+<img src="https://github.com/PACTCare/Stars-Network/blob/master/images/stars_network_2.png" width="550px">
 
 Different Starlog layers can connect via bridges. Starlog itself stores Decentralized Identifiers (DIDs) [\[11\]][11], which can point to different database layers and the metadata itself can point to different storage locations. Below, a reference implementation for each layer is presented. 
 
-### Starlog: Substrate 
+### Starlog Substrate 
 
 Substrate is an open source framework by Parity Technologies to develop blockchains in rust. It can connect via so-called bridges and parachains to enable a future multichain network. This framework enables a diverse and scalable web, in which all kinds of distributed hosted applications use smart contracts or simple runtimes. Additionally, it includes upgradability right from the start, without the necessity of hard forks and makes use of the hybrid GRANDPA (GHOST-based Recursive ANcestor Deriving Prefix Agreement) and BABE (Blind Assignment for Blockchain Extension) consensus algorithm. BABE is the block production mechanism that determines the producer of new blocks. GRANDPA combines probabilistic, Proof-of-work-like finality with byzantine provable finality [\[12\]][12]. In GRANDPA, validators vote for blocks at different heights. As soon as a block has more than 2/3 of the votes this block becomes part of the chain. If there are different parts of the chain, people follow the chain which has more then 2/3 of the vote, so in the image the chain on the bottom. 
 
-<img src="https://github.com/PACTCare/Stars-Network/images/grandpa.png" width="310px">
+<img src="https://github.com/PACTCare/Stars-Network/blob/master/images/grandpa.png" width="400px">
 
 This paper suggests implementing Starlog as a parachain of Polkadot, which allows an easy connection to a wide variety of blockchain projects. Additionally, a Parachain profits from the shared security of the relay chain.
 
@@ -113,7 +113,7 @@ To connect the above interaction with the other layers of the Stars Network, the
 
 Additionally, Starlog provides a layer for smart contracts, which could potentially enable in the future multiple services around digital content. This can, for example, be used to develop content marketplaces for the stored unique information or to provide storage/hosting smart contracts based on the DIDs and the storage location. This essentially represents an alternative to systems like Filecoin. Smart contracts for Substrate can be developed with the ink! CLI. 
 
-### Captain's Log: BigchainDB
+### Captain's Log BigchainDB
 
 BigchainDB is a database with blockchain characteristics, like immutability and Byzantine Fault Tolerance. This means up to a third of the nodes can fail in any way, and the system continues to work. The key requirement for BigchainDB is that not everyone can set up an arbitrary number of nodes. Instead, it’s required that nodes are only hosted by a so-called “BigchainDB consortium”, in which different elected and know-authorities run the nodes. For the Captain's Log this distribution is archived by the Substrate-based governance (see Governance: Federation). A benefit of using BigchainDB compared to a regular blockchain is that every element of the metadata is easily and directly searchable, without the requirement of additional services. Moreover, Substrate nodes aren’t optimized for data querying and, constant requests could cause issues with the performance of the nodes. This is one of the reasons, why the Captain's Log stores certain redundant information. Furthermore, the interaction with the BigchainDB is free and doesn’t require a user to own something specific to the network, like a token, to create a metadata entry. 
 
@@ -149,7 +149,7 @@ The complete data allows for example for decentralized searchability, verifiabil
 
 Since one of the key assumptions of the paper is distribution and diversity, the Captain’s Log provides location-based links as well as a name-based addresses. This means content can be found via names in the form of hashes and via the current web addresses. The combination of both has proven in the project Dweb.page to be a successful way to ensure fast initial loading speed as well as additional network distribution of content [\[13\]][13]. The following picture shows the concept. 
 
-<img src="https://github.com/PACTCare/Stars-Network/images/ipfs.png" width="310px">
+<img src="https://github.com/PACTCare/Stars-Network/blob/master/images/ipfs.png" width="550px">
 
 The user number 1 requests a file from user number 3 via a location-based request (http://www...) as well as a name-based (Qm…) request to the network. Since the file is not yet distributed the traditional way loads the file faster. User number 2 recognizes the interest in the file and decides to load this file as well. Now, when user number 4 request this file in the same way as user number 2, he or she receives it via the named-based system from his neighbor number 2. 
 
@@ -157,7 +157,7 @@ Apart from the above information, the metadata layer also stores availability an
 
 Rather than trying to find one single truth directly on the blockchain (e.g., token-curated registry), the metadata system uses a subscription-based system on the Captain’s Log (see image below). Reasons for this are the expected high frequency of changes and updates to the metadata as well as the different interests when it comes to search-topics.
 
-<img src="https://github.com/PACTCare/Stars-Network/images/captainslog.png" width="310px">
+<img src="https://github.com/PACTCare/Stars-Network/blob/master/images/captainslog.png" width="600px">
 
 This means that content publishers store immutable metadata and unavailability data on the chain. Consumers can then decide which publishers (signatures) they trust and follow. In practice, this will be automatically archived by rules hard-coded into the interface (e.g., dweb.page). The benefit of the system is the immediate availability of information without the requirement of an additional voting system nor a filtering system, which takes individual preferences into account. In case it’s requested, a token-curated register or something similar can at any time be implement as smart contract on the Starlog layer.  
 
@@ -167,11 +167,11 @@ In comparison with the previous layers, the Starspace stores every kind and size
 
 Starspace only stores information based on individual requests. Thus, information can also be deleted if the license code on Starlog is changed and the event-based system triggered. The distribution of content on the Starspace network is also depended on this license code. For example, it’s possible to specify that data should be only stored on one location and not distributed in the network. This way the setup is GDPR compliant.
 
-### Starbridge: WebSocket Client
+### Starbridge WebSocket Client
 
 Starlog talks to other layers via an event-based system, which is triggered based on specific chain events. For example, in case a user logs a delete request on Starlog, it needs to be ensured that the specific Captain’s Log and Starspace also receive this information. The Starbridges subscribe to these events via a WebSocket connection and ensure the appropriate action on the storage or metadata layers. Different Starbridges are hereby responsible for different block numbers. Once the update is executed, they log the result after a certain time on Starlog. The result can also be an unsuccessful execution. If this is the case or if the log entry doesn’t appear at all, the next Starbridge takes care of the job. 
 
-<img src="https://github.com/PACTCare/Stars-Network/images/starbridge.png" width="310px">
+<img src="https://github.com/PACTCare/Stars-Network/blob/master/images/starbridge.png" width="550px">
 
 To calculate the probability for firing an event when a certain Starbridge is currently unavailable, this paper assumes that the probability that a Starbridge operates without failure for a time t is given by the following equation based on the paper by Jaynes, E. T., 1976 `Confidence Intervals vs. Bayesian Intervals'. [\[14\]][14] 
 
