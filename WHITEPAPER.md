@@ -8,16 +8,16 @@ _If you want to help either join our **[discord server](https://discord.gg/VMj7P
 ## Table of Contents
 
 - [Abstract](#Abstract)
-- [Introduction Shooting for the Stars](#Introduction-Shooting-for-the-stars)
+- [Introduction Shooting for the Stars](#Introduction-–-Shooting-for-the-stars)
   - [Components](#Components)
   - [Hypotheses](#Hypotheses)
-- [Network Space, the final frontier](#Network-Space,-the-final-frontier)
-  - [Starlog Substrate](#Starlog-Substrate)
-  - [Captain's Log BigchainDB](#Captain's-Log-BigchainDB)
+- [Network Space, the final frontier](#Network-–-Space,-the-final-frontier)
+  - [Starlog Substrate](#Starlog-–-Substrate)
+  - [Captain's Log BigchainDB](#Captain's-Log-–-BigchainDB)
   - [Starspace – IPFS](#Starspace-–-IPFS)
-  - [Starbridge WebSocket Client](#Starbridge-WebSocket-Client)
-- [Incentive Stars](#Incentive-Stars)
-- [Governance The Federation](#Governance-The-Federation)
+  - [Starbridge WebSocket Client](#Starbridge-–-WebSocket-Client)
+- [Incentive Stars](#Incentive-–-Stars)
+- [Governance The Federation](#Governance-–-The-Federation)
 - [Conclusion](#Conclusion)
 - [Citations](#citations)
 
@@ -29,7 +29,7 @@ As an initial setup, the Stars Network uses a Proof-of-Stake blockchain/smart co
 
 **The paper itself is under active development and represents a research project. It is neither intended to be a final design nor a product specification.** 
 
-## Introduction Shooting for the Stars
+## Introduction – Shooting for the Stars
 
 _“The Web as I envisaged it, we have not seen it yet.” Tim Berners-Lee_
 
@@ -69,7 +69,7 @@ This paper is based on three hypotheses and the resulting design principals. The
 
 **A collectible web - Users should be able to own, collect and be responsible for their digital content and data.** This whitepaper assumes that striving to achieve greater ownership of wealth is one of the driving factors behind human technological advancement. Therefore, digital content needs to be ownable and tradable. The discussion around the European copyright directive shows that the current system has multiple flaws, which need to be addressed. For example, once data is uploaded on the current version of the web users and companies quickly lose control over their data. Important to note here is that the ownership of digital data should be an optional requirement, which means users should still be able to create content completely anonymous. 
 
-## Network Space, the final frontier
+## Network – Space, the final frontier
 
 The network itself consists of a blockchain/smart contract layer called Starlog, an immutable and distributed database layer called Captain's log and a distributed storage layer called Starspace. By splitting the technology stack into different layers, each layer can be adapted according to their key requirements. For example, it is important that the Starlog layer has a high level of distribution and only handles the most important information. Therefore, the Captain's log can take care of the metadata more efficiently and has lower distribution requirements. 
 
@@ -81,7 +81,7 @@ To create a distributed and interoperable web, every layer can be replaced with 
 
 Different Starlog layers can connect via bridges. Starlog itself stores Decentralized Identifiers (DIDs) [\[11\]][11], which can point to different database layers and the metadata itself can point to different storage locations. Below, a reference implementation for each layer is presented. 
 
-### Starlog Substrate 
+### Starlog – Substrate 
 
 Substrate is an open source framework by Parity Technologies to develop blockchains in rust. It can connect via so-called bridges and parachains to enable a future multichain network. This framework enables a diverse and scalable web, in which all kinds of distributed hosted applications use smart contracts or simple runtimes. Additionally, it includes upgradability right from the start, without the necessity of hard forks and makes use of the hybrid GRANDPA (GHOST-based Recursive ANcestor Deriving Prefix Agreement) and BABE (Blind Assignment for Blockchain Extension) consensus algorithm. BABE is the block production mechanism that determines the producer of new blocks. GRANDPA combines probabilistic, Proof-of-work-like finality with byzantine provable finality [\[12\]][12]. In GRANDPA, validators vote for blocks at different heights. As soon as a block has more than 2/3 of the votes this block becomes part of the chain. If there are different parts of the chain, people follow the chain which has more then 2/3 of the vote, so in the image the chain on the bottom. 
 
@@ -113,7 +113,7 @@ To connect the above interaction with the other layers of the Stars Network, the
 
 Additionally, Starlog provides a layer for smart contracts, which could potentially enable in the future multiple services around digital content. This can, for example, be used to develop content marketplaces for the stored unique information or to provide storage/hosting smart contracts based on the DIDs and the storage location. This essentially represents an alternative to systems like Filecoin. Smart contracts for Substrate can be developed with the ink! CLI. 
 
-### Captain's Log BigchainDB
+### Captain's Log – BigchainDB
 
 BigchainDB is a database with blockchain characteristics, like immutability and Byzantine Fault Tolerance. This means up to a third of the nodes can fail in any way, and the system continues to work. The key requirement for BigchainDB is that not everyone can set up an arbitrary number of nodes. Instead, it’s required that nodes are only hosted by a so-called “BigchainDB consortium”, in which different elected and know-authorities run the nodes. For the Captain's Log this distribution is archived by the Substrate-based governance (see Governance: Federation). A benefit of using BigchainDB compared to a regular blockchain is that every element of the metadata is easily and directly searchable, without the requirement of additional services. Moreover, Substrate nodes aren’t optimized for data querying and, constant requests could cause issues with the performance of the nodes. This is one of the reasons, why the Captain's Log stores certain redundant information. Furthermore, the interaction with the BigchainDB is free and doesn’t require a user to own something specific to the network, like a token, to create a metadata entry. 
 
@@ -167,7 +167,7 @@ In comparison with the previous layers, the Starspace stores every kind and size
 
 Starspace only stores information based on individual requests. Thus, information can also be deleted if the license code on Starlog is changed and the event-based system triggered. The distribution of content on the Starspace network is also depended on this license code. For example, it’s possible to specify that data should be only stored on one location and not distributed in the network. This way the setup is GDPR compliant.
 
-### Starbridge WebSocket Client
+### Starbridge – WebSocket Client
 
 Starlog talks to other layers via an event-based system, which is triggered based on specific chain events. For example, in case a user logs a delete request on Starlog, it needs to be ensured that the specific Captain’s Log and Starspace also receive this information. The Starbridges subscribe to these events via a WebSocket connection and ensure the appropriate action on the storage or metadata layers. Different Starbridges are hereby responsible for different block numbers. Once the update is executed, they log the result after a certain time on Starlog. The result can also be an unsuccessful execution. If this is the case or if the log entry doesn’t appear at all, the next Starbridge takes care of the job. 
 
@@ -175,183 +175,21 @@ Starlog talks to other layers via an event-based system, which is triggered base
 
 To calculate the probability for firing an event when a certain Starbridge is currently unavailable, this paper assumes that the probability that a Starbridge operates without failure for a time t is given by the following equation based on the paper by Jaynes, E. T., 1976 `Confidence Intervals vs. Bayesian Intervals'. [\[14\]][14] 
 
-<math xmlns="http://www.w3.org/1998/Math/MathML" display="block">
-  <mi>P</mi>
-  <mi>r</mi>
-  <mo stretchy="false">(</mo>
-  <mi>&#x03B8;<!-- θ --></mi>
-  <mo>&#x2265;<!-- ≥ --></mo>
-  <mi>t</mi>
-  <mo stretchy="false">)</mo>
-  <mo>=</mo>
-  <msup>
-    <mi>e</mi>
-    <mrow class="MJX-TeXAtom-ORD">
-      <mo>&#x2212;<!-- − --></mo>
-      <mi>&#x03BB;<!-- λ --></mi>
-      <mi>t</mi>
-    </mrow>
-  </msup>
-  <mo>;</mo>
-  <mtext>&#xA0;</mtext>
-  <mtext>&#xA0;</mtext>
-  <mn>0</mn>
-  <mo>&lt;</mo>
-  <mi>t</mi>
-  <mo>,</mo>
-  <mi>&#x03BB;<!-- λ --></mi>
-  <mo>&lt;</mo>
-  <mi mathvariant="normal">&#x221E;<!-- ∞ --></mi>
-</math>
+<img src="https://github.com/PACTCare/Stars-Network/blob/master/images/math1.PNG" width="250px">
 
 λ is, in this case, the unknown "rate of failure". With this you can derive the following equation for the probability for hitting the system when it’s unavailable [\[15\]][15]:
 
-<math xmlns="http://www.w3.org/1998/Math/MathML" display="block">
-  <mi>P</mi>
-  <mi>r</mi>
-  <mo stretchy="false">(</mo>
-  <mi>&#x03B8;<!-- θ --></mi>
-  <mo>&#x2208;<!-- ∈ --></mo>
-  <mo stretchy="false">(</mo>
-  <mn>0</mn>
-  <mo>,</mo>
-  <mi>S</mi>
-  <mo stretchy="false">)</mo>
-  <mrow class="MJX-TeXAtom-ORD">
-    <mo stretchy="false">|</mo>
-  </mrow>
-  <mrow class="MJX-TeXAtom-ORD">
-    <mover>
-      <mi>F</mi>
-      <mo stretchy="false">&#x005E;<!-- ^ --></mo>
-    </mover>
-  </mrow>
-  <mo>,</mo>
-  <msub>
-    <mi>T</mi>
-    <mi>U</mi>
-  </msub>
-  <mo>,</mo>
-  <msub>
-    <mi>T</mi>
-    <mi>D</mi>
-  </msub>
-  <mo stretchy="false">)</mo>
-  <mo>=</mo>
-  <mn>1</mn>
-  <mo>&#x2212;<!-- − --></mo>
-  <mfrac>
-    <mrow>
-      <mstyle scriptlevel="0">
-        <mrow class="MJX-TeXAtom-ORD">
-          <mo maxsize="2.470em" minsize="2.470em">(</mo>
-        </mrow>
-      </mstyle>
-      <mfrac>
-        <msub>
-          <mi>T</mi>
-          <mi>U</mi>
-        </msub>
-        <mrow>
-          <msub>
-            <mi>T</mi>
-            <mi>U</mi>
-          </msub>
-          <mo>+</mo>
-          <msub>
-            <mi>T</mi>
-            <mi>D</mi>
-          </msub>
-        </mrow>
-      </mfrac>
-      <mstyle scriptlevel="0">
-        <mrow class="MJX-TeXAtom-ORD">
-          <mo maxsize="2.470em" minsize="2.470em">)</mo>
-        </mrow>
-      </mstyle>
-      <mstyle scriptlevel="0">
-        <mrow class="MJX-TeXAtom-ORD">
-          <mo maxsize="2.470em" minsize="2.470em">(</mo>
-        </mrow>
-      </mstyle>
-      <mfrac>
-        <msub>
-          <mi>T</mi>
-          <mi>U</mi>
-        </msub>
-        <mrow>
-          <msub>
-            <mi>T</mi>
-            <mi>U</mi>
-          </msub>
-          <mo>+</mo>
-          <mi>S</mi>
-        </mrow>
-      </mfrac>
-      <msup>
-        <mstyle scriptlevel="0">
-          <mrow class="MJX-TeXAtom-ORD">
-            <mo maxsize="2.470em" minsize="2.470em">)</mo>
-          </mrow>
-        </mstyle>
-        <mn>2</mn>
-      </msup>
-    </mrow>
-    <mrow>
-      <mrow class="MJX-TeXAtom-ORD">
-        <mover>
-          <mi>F</mi>
-          <mo stretchy="false">&#x005E;<!-- ^ --></mo>
-        </mover>
-      </mrow>
-      <mo>&#x2212;<!-- − --></mo>
-      <mo stretchy="false">(</mo>
-      <mrow class="MJX-TeXAtom-ORD">
-        <mover>
-          <mi>F</mi>
-          <mo stretchy="false">&#x005E;<!-- ^ --></mo>
-        </mover>
-      </mrow>
-      <mo>&#x2212;<!-- − --></mo>
-      <mn>1</mn>
-      <mo stretchy="false">)</mo>
-      <mstyle scriptlevel="0">
-        <mrow class="MJX-TeXAtom-ORD">
-          <mo maxsize="2.470em" minsize="2.470em">(</mo>
-        </mrow>
-      </mstyle>
-      <mfrac>
-        <msub>
-          <mi>T</mi>
-          <mi>U</mi>
-        </msub>
-        <mrow>
-          <msub>
-            <mi>T</mi>
-            <mi>U</mi>
-          </msub>
-          <mo>+</mo>
-          <mi>S</mi>
-        </mrow>
-      </mfrac>
-      <mstyle scriptlevel="0">
-        <mrow class="MJX-TeXAtom-ORD">
-          <mo maxsize="2.470em" minsize="2.470em">)</mo>
-        </mrow>
-      </mstyle>
-    </mrow>
-  </mfrac>
-</math>
+<img src="https://github.com/PACTCare/Stars-Network/blob/master/images/math2.PNG" width="250px">
 
 Where TU is the "uptime" and TD is the "down time", in seconds. θ is the time of the first downtime (in seconds) observed by the user and F is the expected number of "downtime periods". This equation shows that if Starbridge providers ensure high availability, the probability that an available honest provider didn’t get an event gets quickly close to zero. Especially if there are multiple rounds by different Starbridge providers. 
 
-## Incentive: Stars
+## Incentive – Stars
 
 The monetary token and voting power of the network is called Star. All monetary transactions in the network, like paying for unique names, fees or participating in smart contract marketplaces require Stars as a payment token. However, the goal is to make it as easier as possible to use other currencies for payment. Therefore, systems like Chainlink will be implemented in a later stage to make it even possible to use fiat for buying digital goods without trusting a centralized authority. The ability to exchange different currencies almost instantly makes it unnecessary to implement a two-token system, in which a stable coin is used for monetary transactions, and another token is used for staking. 
 
 It’s important to notice that pure metadata transactions on the Captain’s Log don’t require any payment. This way it’s ensured that people don’t need to own anything to participate in the network and to share their metadata. Only if they want to trade their data, own a unique name, vote for network participants or have an additional level of security, the participation in the network is required. 
 
-## Governance: The Federation 
+## Governance – The Federation 
 
 Without a proper governance structure right from the start, a network like this would be unable to adapt to future developments or split into different systems that represent different opinions (see Bitcoin Forks). The government of the Stars Network is called Federation and is based on Proof-of-Stake system. All Stars holders are part of the Federation, which means they have the right to vote for a Captain’s Log, Starbridge provider or specific network-related suggestions. Voting is incentivized by an inflation rate, which means that the ones participating in the voting process will receive an appropriate share of new Stars. Voting takes place infrequently, and the Star tokens need to be staked to participate in the voting process. In the case of voting for malicious parties the staked Star tokens are lost.
 
