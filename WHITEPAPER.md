@@ -9,16 +9,16 @@ _If you want to help either join our **[discord server](https://discord.gg/VMj7P
 ## Table of Contents
 
 - [Abstract](#abstract)
-- [Introduction Shooting for the Stars](#introduction)
+- [Introduction – Shooting for the Stars](#introduction)
   - [Components](#components)
   - [Hypotheses](#hypotheses)
-- [Network Space, the final frontier](#network)
-  - [Starlog Substrate](#starlog)
-  - [Captain's Log BigchainDB](#captain)
+- [Network – Space, the final frontier](#network)
+  - [Starlog – Substrate](#starlog)
+  - [Captain's Log – BigchainDB](#captain)
   - [Starspace – IPFS](#starspace)
-  - [Starbridge WebSocket Client](#starbridge)
-- [Incentive Stars](#incentive)
-- [Governance The Federation](#governance)
+  - [Starbridge – WebSocket Client](#starbridge)
+- [Incentive – Stars](#incentive)
+- [Governance – The Federation](#governance)
 - [Conclusion](#conclusion)
 - [Citations](#citations)
 
