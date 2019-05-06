@@ -1,4 +1,5 @@
-# Stars Network
+<img src="https://github.com/PACTCare/Stars-Network/blob/master/images/stars_network.png" width="400px">
+
 **A Vision of a Distributed, Free and Collectible Web**
 
 Draft 0.1, May 2019, David Hawig, PACT Care B.V.
@@ -8,7 +9,7 @@ _If you want to help either join our **[discord server](https://discord.gg/VMj7P
 ## Table of Contents
 
 - [Abstract](#Abstract)
-- [Introduction Shooting for the Stars](#Introduction-–-Shooting-for-the-stars)
+- [Introduction Shooting for the Stars](#introduction)
   - [Components](#Components)
   - [Hypotheses](#Hypotheses)
 - [Network Space, the final frontier](#Network-–-Space,-the-final-frontier)
@@ -29,7 +30,9 @@ As an initial setup, the Stars Network uses a Proof-of-Stake blockchain/smart co
 
 **The paper itself is under active development and represents a research project. It is neither intended to be a final design nor a product specification.** 
 
-## Introduction – Shooting for the Stars
+<h2 id="introduction">
+  Introduction – Shooting for the Stars
+</h2>
 
 _“The Web as I envisaged it, we have not seen it yet.” Tim Berners-Lee_
 
@@ -179,7 +182,7 @@ To calculate the probability for firing an event when a certain Starbridge is cu
 
 λ is, in this case, the unknown "rate of failure". With this you can derive the following equation for the probability for hitting the system when it’s unavailable [\[15\]][15]:
 
-<img src="https://github.com/PACTCare/Stars-Network/blob/master/images/math2.PNG" width="250px">
+<img src="https://github.com/PACTCare/Stars-Network/blob/master/images/math2.PNG" width="400px">
 
 Where TU is the "uptime" and TD is the "down time", in seconds. θ is the time of the first downtime (in seconds) observed by the user and F is the expected number of "downtime periods". This equation shows that if Starbridge providers ensure high availability, the probability that an available honest provider didn’t get an event gets quickly close to zero. Especially if there are multiple rounds by different Starbridge providers. 
 
