@@ -208,7 +208,7 @@ Where TU is the "uptime" and TD is the "down time", in seconds. θ is the time o
   Incentive – Stars
 </h2>
 
-The monetary token and voting power of the network is called Star. All monetary transactions in the network, like paying for unique names, fees or participating in smart contract marketplaces require Stars as a payment token. However, the goal is to make it as easier as possible to use other currencies for payment. Therefore, systems like Chainlink will be implemented in a later stage to make it even possible to use fiat for buying digital goods without trusting a centralized authority. The ability to exchange different currencies almost instantly makes it unnecessary to implement a two-token system, in which a stable coin is used for monetary transactions, and another token is used for staking. 
+The monetary token and voting power of the network is called Star. All monetary transactions in the network, like paying for unique names, fees or participating in smart contract marketplaces require Stars as a payment token. However, the goal is to make it as easier as possible to use other currencies for payment. Therefore, systems like Chainlink [\[18\]][18] will be implemented in a later stage to make it even possible to use fiat for buying digital goods without trusting a centralized authority. The ability to exchange different currencies almost instantly makes it unnecessary to implement a two-token system, in which a stable coin is used for monetary transactions, and another token is used for staking. 
 
 It’s important to notice that pure metadata transactions on the Captain’s Log don’t require any payment. This way it’s ensured that people don’t need to own anything to participate in the network and to share their metadata. Only if they want to trade their data, own a unique name, vote for network participants or have an additional level of security, the participation in the network is required. 
 
@@ -218,7 +218,7 @@ It’s important to notice that pure metadata transactions on the Captain’s Lo
 
 Without a proper governance structure right from the start, a network like this would be unable to adapt to future developments or split into different systems that represent different opinions (see Bitcoin Forks). The government of the Stars Network is called Federation and is based on Proof-of-Stake system. All Stars holders are part of the Federation, which means they have the right to vote for a Captain’s Log, Starbridge provider or specific network-related suggestions. Voting is incentivized by an inflation rate, which means that the ones participating in the voting process will receive an appropriate share of new Stars. Voting takes place infrequently, and the Star tokens need to be staked to participate in the voting process. In the case of voting for malicious parties the staked Star tokens are lost.
 
-Similar Captain’s Log and Starbridge provider need to put a certain number of tokens at stake to be listed as potential candidates. If they get successfully elected and act malicious, they will lose all their staked tokens. This is especially important for the proof-of-authority based Captain’s Log setup, where a system which only puts the identity at stake might not be a sufficient incentive to deliver the most secure network. [\[18\]][18]  
+Similar Captain’s Log and Starbridge provider need to put a certain number of tokens at stake to be listed as potential candidates. If they get successfully elected and act malicious, they will lose all their staked tokens. This is especially important for the proof-of-authority based Captain’s Log setup, where a system which only puts the identity at stake might not be a sufficient incentive to deliver the most secure network. [\[19\]][19]  
 
 In general, the Star Network is able to store transaction in a clear and legally binding way. But, at the same time, it can also be used under complete anonymity. Knowing that legally binding contracts are sufficient in a lot of use cases, the first iteration of the Stars Network will focus on supporting these legal structures. Let’s take the example of a delete request. Normally, changing the license code on Starlog would automatically delete the related content on Starspace. However, a malicious party might suppress a successful execution of this request. But since the malicious party, as well as the request, are publicly immutable logged, it’s easy to take appropriate steps to sue the specific persons or legal entity. 
 
@@ -247,7 +247,8 @@ This paper presents a first version of a distributed and decentralized metadata 
 [15]: https://github.com/PACTCare/Dweb.page
 [16]: http://bayes.wustl.edu/etj/articles/confidence.pdf 
 [17]: https://stats.stackexchange.com/questions/6636/probability-calculation-system-uptime-likelihood-of-occurence
-[18]: https://medium.com/@timdaub/why-you-shouldnt-ship-to-a-poa-network-7e2b5aa83aa9
+[18]: https://chain.link/
+[19]: https://medium.com/@timdaub/why-you-shouldnt-ship-to-a-poa-network-7e2b5aa83aa9
 
 
 * [1] Dweb: https://www.theguardian.com/technology/2018/sep/08/decentralisation-next-big-step-for-the-world-wide-web-dweb-data-internet-censorship-brewster-kahle
@@ -267,4 +268,5 @@ This paper presents a first version of a distributed and decentralized metadata 
 * [15] Dweb.page: https://github.com/PACTCare/Dweb.page
 * [16] Confidence Intervals vs. Bayesian Intervals: http://bayes.wustl.edu/etj/articles/confidence.pdf 
 * [17] Probability calculation, system uptime, likelihood of occurence: https://stats.stackexchange.com/questions/6636/probability-calculation-system-uptime-likelihood-of-occurence
-* [18] Why you shouldn’t ship to a POA network: https://medium.com/@timdaub/why-you-shouldnt-ship-to-a-poa-network-7e2b5aa83aa9
+* [18] Chainlink: https://chain.link/
+* [19] Why you shouldn’t ship to a POA network: https://medium.com/@timdaub/why-you-shouldnt-ship-to-a-poa-network-7e2b5aa83aa9
