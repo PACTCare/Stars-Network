@@ -101,7 +101,7 @@ Since Starlog stores data entries permanently and based on a network consensus, 
 | Attribute         | Type | Description                                         |
 | ----------------- | -------- | --------------------------------------------------- |
 | **DID**         | Vec\<u8\> | Decentralized Identifier |
-| **unique name**   | Vec\<u8\> | A optional unique name |
+| **unique name**   | Vec\<u8\> | An optional unique name |
 | **license code**      | u16 | Numbers referencing the license of the data |
 | **storage location**      | Vec\<u8\> | The primary/initial storage location of the data and thumbnail |
 | **timestamp**      | Time | The timestamp of the entry |
