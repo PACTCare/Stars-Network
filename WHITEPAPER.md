@@ -2,7 +2,7 @@
 
 **A Vision of a Distributed, Free and Collectible Web**
 
-Draft 0.1, May 2019, [David Hawig](https://github.com/Noc2), [PACT Care B.V.](https://pact.care/)
+Draft 0.1, May 2019, [David Hawig](https://github.com/Noc2) (david.hawig[at]pact[dot]care), [PACT Care B.V.](https://pact.care/)
 
 _If you want to help either join our **[discord server](https://discord.gg/VMj7PFN)** or you can open an issue. You can also submit pull requests to this repository._
 
