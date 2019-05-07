@@ -99,10 +99,10 @@ This paper suggests implementing Starlog as a parachain of Polkadot, which allow
 Since Starlog stores data entries permanently and based on a network consensus, it keeps track of the most important information only. This information includes:
 
 * DID
-* Unique name
-* License code
-* Storage location
-* Timestamp
+* unique name
+* license code
+* storage location
+* timestamp
 
 The DID points to the metadata storage. For example, the following string represents a valid Starlog DID: 
 
@@ -139,16 +139,17 @@ The service entry contains the metadata as well as validation entries. A service
 * serviceEndpoint
 * metadata
 
-And the metadata contains the following elements:
+The metadata entry is partly based on the “ERC721 Metadata JSON Schema” [\[13\]][13] and it contains the following elements:
 
 * hashes
-* title
+* name
 * description
-* filetype
+* filetype 
 * thumbnail
 * similarity digest
+* additional meta
 
-The similarity digest is a context sensitive hash, which allows the comparison of two different hashes to obtain an estimate of the degree of similarity between the two documents. This is especial helpful for find near duplicates of documents for search engines. Additionally, the metadata also stores the following information, which is already stored on-chain:
+The similarity digest is a context sensitive hash, which allows the comparison of two different hashes to obtain an estimate of the degree of similarity between the two documents. This is especial helpful for find near duplicates of documents for search engines. The “additional meta” property allows to attach other data, which for example can be useful for different marketplaces. [\[14\]][14] Furthermore, the metadata also stores the following information, which is already stored on-chain:
 
 * unique name
 * license code
@@ -156,7 +157,7 @@ The similarity digest is a context sensitive hash, which allows the comparison o
 
 The complete data allows for example for decentralized searchability, verifiability, near-duplicate detection and the combination of address- and name-based storage. Every Captain’s Log metadata entry must include a unique file hash, which points to a file stored on Starspace. 
 
-Since one of the key assumptions of the paper is distribution and diversity, the Captain’s Log provides location-based links as well as a name-based addresses. This means content can be found via names in the form of hashes and via the current web addresses. The combination of both has proven in the project Dweb.page to be a successful way to ensure fast initial loading speed as well as additional network distribution of content [\[13\]][13]. The following picture shows the concept. 
+Since one of the key assumptions of the paper is distribution and diversity, the Captain’s Log provides location-based links as well as a name-based addresses. This means content can be found via names in the form of hashes and via the current web addresses. The combination of both has proven in the project Dweb.page to be a successful way to ensure fast initial loading speed as well as additional network distribution of content [\[15\]][15]. The following picture shows the concept. 
 
 <img src="https://github.com/PACTCare/Stars-Network/blob/master/images/ipfs.png" width="550px">
 
@@ -186,11 +187,11 @@ Starlog talks to other layers via an event-based system, which is triggered base
 
 <img src="https://github.com/PACTCare/Stars-Network/blob/master/images/starbridge.png" width="550px">
 
-To calculate the probability for firing an event when a certain Starbridge is currently unavailable, this paper assumes that the probability that a Starbridge operates without failure for a time t is given by the following equation based on the paper by Jaynes, E. T., 1976 `Confidence Intervals vs. Bayesian Intervals'. [\[14\]][14] 
+To calculate the probability for firing an event when a certain Starbridge is currently unavailable, this paper assumes that the probability that a Starbridge operates without failure for a time t is given by the following equation based on the paper by Jaynes, E. T., 1976 `Confidence Intervals vs. Bayesian Intervals'. [\[16\]][16] 
 
 <img src="https://github.com/PACTCare/Stars-Network/blob/master/images/math1.PNG" width="250px">
 
-λ is, in this case, the unknown "rate of failure". With this you can derive the following equation for the probability for hitting the system when it’s unavailable [\[15\]][15]:
+λ is, in this case, the unknown "rate of failure". With this you can derive the following equation for the probability for hitting the system when it’s unavailable [\[17\]][17]:
 
 <img src="https://github.com/PACTCare/Stars-Network/blob/master/images/math2.PNG" width="400px">
 
@@ -210,7 +211,7 @@ It’s important to notice that pure metadata transactions on the Captain’s Lo
 
 Without a proper governance structure right from the start, a network like this would be unable to adapt to future developments or split into different systems that represent different opinions (see Bitcoin Forks). The government of the Stars Network is called Federation and is based on Proof-of-Stake system. All Stars holders are part of the Federation, which means they have the right to vote for a Captain’s Log, Starbridge provider or specific network-related suggestions. Voting is incentivized by an inflation rate, which means that the ones participating in the voting process will receive an appropriate share of new Stars. Voting takes place infrequently, and the Star tokens need to be staked to participate in the voting process. In the case of voting for malicious parties the staked Star tokens are lost.
 
-Similar Captain’s Log and Starbridge provider need to put a certain number of tokens at stake to be listed as potential candidates. If they get successfully elected and act malicious, they will lose all their staked tokens. This is especially important for the proof-of-authority based Captain’s Log setup, where a system which only puts the identity at stake might not be a sufficient incentive to deliver the most secure network. [\[16\]][16]  
+Similar Captain’s Log and Starbridge provider need to put a certain number of tokens at stake to be listed as potential candidates. If they get successfully elected and act malicious, they will lose all their staked tokens. This is especially important for the proof-of-authority based Captain’s Log setup, where a system which only puts the identity at stake might not be a sufficient incentive to deliver the most secure network. [\[18\]][18]  
 
 In general, the Star Network is able to store transaction in a clear and legally binding way. But, at the same time, it can also be used under complete anonymity. Knowing that legally binding contracts are sufficient in a lot of use cases, the first iteration of the Stars Network will focus on supporting these legal structures. Let’s take the example of a delete request. Normally, changing the license code on Starlog would automatically delete the related content on Starspace. However, a malicious party might suppress a successful execution of this request. But since the malicious party, as well as the request, are publicly immutable logged, it’s easy to take appropriate steps to sue the specific persons or legal entity. 
 
@@ -234,10 +235,12 @@ This paper presents a first version of a distributed and decentralized metadata 
 [10]: https://techcrunch.com/2018/02/09/google-fined-21-1m-for-search-bias-in-india/?guccounter=1&guce_referrer_us=aHR0cHM6Ly90ZWNoY3J1bmNoLmNvbS8&guce_referrer_cs=trGdiLkoRxbYgTF1EG6m8w
 [11]: https://w3c-ccg.github.io/did-spec/
 [12]: https://github.com/w3f/consensus/raw/master/pdf/grandpa.pdf 
-[13]: https://github.com/PACTCare/Dweb.page
-[14]: http://bayes.wustl.edu/etj/articles/confidence.pdf 
-[15]: https://stats.stackexchange.com/questions/6636/probability-calculation-system-uptime-likelihood-of-occurence
-[16]: https://medium.com/@timdaub/why-you-shouldnt-ship-to-a-poa-network-7e2b5aa83aa9
+[13]: https://github.com/ethereum/EIPs/blob/master/EIPS/eip-721.md
+[14]: https://medium.com/blockchain-manchester/erc-721-metadata-standards-and-ipfs-94b01fea2a89
+[15]: https://github.com/PACTCare/Dweb.page
+[16]: http://bayes.wustl.edu/etj/articles/confidence.pdf 
+[17]: https://stats.stackexchange.com/questions/6636/probability-calculation-system-uptime-likelihood-of-occurence
+[18]: https://medium.com/@timdaub/why-you-shouldnt-ship-to-a-poa-network-7e2b5aa83aa9
 
 
 * [1] Dweb: https://www.theguardian.com/technology/2018/sep/08/decentralisation-next-big-step-for-the-world-wide-web-dweb-data-internet-censorship-brewster-kahle
@@ -252,7 +255,9 @@ This paper presents a first version of a distributed and decentralized metadata 
 * [10] Google fined for search bias: https://techcrunch.com/2018/02/09/google-fined-21-1m-for-search-bias-in-india/?guccounter=1&guce_referrer_us=aHR0cHM6Ly90ZWNoY3J1bmNoLmNvbS8&guce_referrer_cs=trGdiLkoRxbYgTF1EG6m8w
 * [11] Decentralized Identifiers: https://w3c-ccg.github.io/did-spec/
 * [12] GRANDPA: https://github.com/w3f/consensus/raw/master/pdf/grandpa.pdf 
-* [13] Dweb.page: https://github.com/PACTCare/Dweb.page
-* [14] Confidence Intervals vs. Bayesian Intervals: http://bayes.wustl.edu/etj/articles/confidence.pdf 
-* [15] Probability calculation, system uptime, likelihood of occurence: https://stats.stackexchange.com/questions/6636/probability-calculation-system-uptime-likelihood-of-occurence
-* [16] Why you shouldn’t ship to a POA network: https://medium.com/@timdaub/why-you-shouldnt-ship-to-a-poa-network-7e2b5aa83aa9
+* [13] EIP-721: https://github.com/ethereum/EIPs/blob/master/EIPS/eip-721.md
+* [14] ERC-721 metadata standards: https://medium.com/blockchain-manchester/erc-721-metadata-standards-and-ipfs-94b01fea2a89
+* [15] Dweb.page: https://github.com/PACTCare/Dweb.page
+* [16] Confidence Intervals vs. Bayesian Intervals: http://bayes.wustl.edu/etj/articles/confidence.pdf 
+* [17] Probability calculation, system uptime, likelihood of occurence: https://stats.stackexchange.com/questions/6636/probability-calculation-system-uptime-likelihood-of-occurence
+* [18] Why you shouldn’t ship to a POA network: https://medium.com/@timdaub/why-you-shouldnt-ship-to-a-poa-network-7e2b5aa83aa9
