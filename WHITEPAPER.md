@@ -84,25 +84,28 @@ To create a distributed and interoperable web, every layer can be replaced with 
 
 <img src="https://github.com/PACTCare/Stars-Network/blob/master/images/stars_network_2.png" width="550px">
 
-Different Starlog layers can connect via bridges. Starlog itself stores Decentralized Identifiers (DIDs) [\[11\]][11], which can point to different database layers and the metadata itself can point to different storage locations. Below, a reference implementation for each layer is presented. 
+Different Starlog layers can connect via Bridges. Starlog itself stores Decentralized Identifiers (DIDs) [\[11\]][11], which can point to different database layers and the metadata itself can point to different storage locations. Below, a reference implementation for each layer is presented. 
 
 <h3 id="starlog">
   Starlog – Substrate 
 </h3>
 
-Substrate is an open source framework by Parity Technologies to develop blockchains in rust. It can connect via so-called bridges and parachains to enable a future multichain network. This framework enables a diverse and scalable web, in which all kinds of distributed hosted applications use smart contracts or simple runtimes. Additionally, it includes upgradability right from the start, without the necessity of hard forks and makes use of the hybrid GRANDPA (GHOST-based Recursive ANcestor Deriving Prefix Agreement) and BABE (Blind Assignment for Blockchain Extension) consensus algorithm. BABE is the block production mechanism that determines the producer of new blocks. GRANDPA combines probabilistic, Proof-of-work-like finality with byzantine provable finality [\[12\]][12]. In GRANDPA, validators vote for blocks at different heights. As soon as a block has more than 2/3 of the votes this block becomes part of the chain. If there are different parts of the chain, people follow the chain which has more then 2/3 of the vote, so in the image the chain on the bottom. 
+Substrate is an open source framework by Parity Technologies to develop blockchains in rust. It can connect via so-called Bridges and Parachains to enable a future multichain network. This framework enables a diverse and scalable web, in which all kinds of distributed hosted applications use smart contracts or simple runtimes. Additionally, it includes upgradability right from the start, without the necessity of hard forks and makes use of the hybrid GRANDPA (GHOST-based Recursive ANcestor Deriving Prefix Agreement) and BABE (Blind Assignment for Blockchain Extension) consensus algorithm. BABE is the block production mechanism that determines the producer of new blocks. GRANDPA combines probabilistic, Proof-of-work-like finality with byzantine provable finality [\[12\]][12]. In GRANDPA, validators vote for blocks at different heights. As soon as a block has more than 2/3 of the votes this block becomes part of the chain. If there are different parts of the chain, people follow the chain which has more then 2/3 of the vote, so in the image the chain on the bottom. 
 
 <img src="https://github.com/PACTCare/Stars-Network/blob/master/images/grandpa.png" width="400px">
 
-This paper suggests implementing Starlog as a parachain of Polkadot, which allows an easy connection to a wide variety of blockchain projects. Additionally, a Parachain profits from the shared security of the relay chain.
+This paper suggests implementing Starlog as a Parachain of Polkadot, which allows an easy connection to a wide variety of blockchain projects. Additionally, a Parachain profits from the shared security of the relay chain.
 
 Since Starlog stores data entries permanently and based on a network consensus, it keeps track of the most important information only. This information includes:
 
-* DID
-* unique name
-* license code
-* storage location
-* timestamp
+| Attribute         | Type | Description                                         |
+| ----------------- | -------- | --------------------------------------------------- |
+| **DID**         | Vec<u8> | Decentralized Identifier |
+| **unique name**   | Vec<u8> | A optional unique name |
+| **license code**      | u16 | Numbers referencing the license of the data |
+| **storage location**      | Vec<u8> | The primary/initial storage location of the data and thumbnail |
+| **timestamp**      | Time | The timestamp of the entry |
+| **price**      | Balance | An optional price tag |
 
 The DID points to the metadata storage. For example, the following string represents a valid Starlog DID: 
 
@@ -141,19 +144,23 @@ The service entry contains the metadata as well as validation entries. A service
 
 The metadata entry is partly based on the “ERC721 Metadata JSON Schema” [\[13\]][13] and it contains the following elements:
 
-* hashes
-* name
-* description
-* filetype 
-* thumbnail
-* similarity digest
-* additional meta
+| Attribute         | Type | Description                                         |
+| ----------------- | -------- | --------------------------------------------------- |
+| **name**         | string | A descriptive title of the data |
+| **description**   | string | A detailed description of the data |
+| **thumbnail**      | hash | A thumbnail of the data or file |
+| **hashes** | array | An array of the hashes, which represent the metadata |
+| **time**   | array | An array of the timestamps representing the creation or update of the metadata |
+| **filetype**      | string | The file type |
+| **similarity digest**  | string | A context-sensitive hash |
+| **additional meta** | object | Additional attributes, like for example categories, which can be defined by marketplaces. |
 
 The similarity digest is a context sensitive hash, which allows the comparison of two different hashes to obtain an estimate of the degree of similarity between the two documents. This is especial helpful for find near duplicates of documents for search engines. The “additional meta” property allows to attach other data, which for example can be useful for different marketplaces. [\[14\]][14] Furthermore, the metadata also stores the following information, which is already stored on-chain:
 
 * unique name
 * license code
 * storage location
+* price
 
 The complete data allows for example for decentralized searchability, verifiability, near-duplicate detection and the combination of address- and name-based storage. Every Captain’s Log metadata entry must include a unique file hash, which points to a file stored on Starspace. 
 
