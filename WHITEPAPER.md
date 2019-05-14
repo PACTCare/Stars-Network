@@ -105,7 +105,6 @@ Since Starlog stores data entries permanently and based on a network consensus, 
 | **license code**      | u16 | Numbers referencing the license of the data |
 | **storage location**      | Vec\<u8\> | The primary/initial storage location of the data and thumbnail |
 | **timestamp**      | Time | The timestamp of the entry |
-| **price**      | Balance | An optional price tag |
 
 The DID points to the metadata storage. For example, the following string represents a valid Starlog DID: 
 
@@ -160,7 +159,6 @@ The similarity digest is a context sensitive hash, which allows the comparison o
 * unique name
 * license code
 * storage location
-* price
 
 The complete data allows for example for decentralized searchability, verifiability, near-duplicate detection and the combination of address- and name-based storage. Every Captain’s Log metadata entry must include a unique file hash, which points to a file stored on Starspace. 
 
