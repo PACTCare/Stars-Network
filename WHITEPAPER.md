@@ -100,11 +100,13 @@ Since Starlog stores data entries permanently and based on a network consensus, 
 
 | Attribute         | Type | Description                                         |
 | ----------------- | -------- | --------------------------------------------------- |
-| **DID**         | Vec\<u8\> | Decentralized Identifier |
-| **unique name**   | Vec\<u8\> | An optional unique name |
+| **DID**         | Vec\<u8\> | Decentralized Identifier (max. length 80 character) |
+| **unique name**   | Vec\<u8\> | An optional unique name (max. length 40 character) |
 | **license code**      | u16 | Numbers referencing the license of the data |
-| **storage location**      | Vec\<u8\> | The primary/initial storage location of the data and thumbnail |
+| **storage location**      | Vec\<u8\> | The primary/initial storage location of the data and thumbnail (max. length 80 character) |
 | **timestamp**      | Time | The timestamp of the entry |
+
+All types herby only allow a limited size to keep the information on the chain per transaction to a minimum to prevent potential denial of service attacks. 
 
 The DID points to the metadata storage. For example, the following string represents a valid Starlog DID: 
 
@@ -118,7 +120,7 @@ The storage location provides the location of an initial permanent storage provi
 
 Furthermore, Starlog stores all government activities as well as token movements. Users sign all uploaded Starlog entries and therefore own these uploads. However, if they don’t share the specific public key others won’t know the owner of the data. 
 
-To connect the above interaction with the other layers of the Stars Network, the on-chain interaction fires certain events, which are then handled by the Starbridges (see Starbridge: WebSocket Client). 
+To connect the above interaction with the other layers of the Stars Network, the on-chain interaction fires certain events, which are then handled by the Starbridges (see [Starbridge – WebSocket Client](#starbridge)). 
 
 Additionally, Starlog provides a layer for smart contracts, which could potentially enable in the future multiple services around digital content. This can, for example, be used to develop content marketplaces for the stored unique information or to provide storage/hosting smart contracts based on the DIDs and the storage location. This essentially represents an alternative to systems like Filecoin. Smart contracts for Substrate can be developed with the ink! CLI. 
 
@@ -126,7 +128,7 @@ Additionally, Starlog provides a layer for smart contracts, which could potentia
   Captain's Log – BigchainDB
 </h3>
 
-BigchainDB is a database with blockchain characteristics, like immutability and Byzantine Fault Tolerance. This means up to a third of the nodes can fail in any way, and the system continues to work. The key requirement for BigchainDB is that not everyone can set up an arbitrary number of nodes. Instead, it’s required that nodes are only hosted by a so-called “BigchainDB consortium”, in which different elected and know-authorities run the nodes. For the Captain's Log this distribution is archived by the Substrate-based governance (see Governance: Federation). A benefit of using BigchainDB compared to a regular blockchain is that every element of the metadata is easily and directly searchable, without the requirement of additional services. Moreover, Substrate nodes aren’t optimized for data querying and, constant requests could cause issues with the performance of the nodes. This is one of the reasons, why the Captain's Log stores certain redundant information. Furthermore, the interaction with the BigchainDB is free and doesn’t require a user to own something specific to the network, like a token, to create a metadata entry. 
+BigchainDB is a database with blockchain characteristics, like immutability and Byzantine Fault Tolerance. This means up to a third of the nodes can fail in any way, and the system continues to work. The key requirement for BigchainDB is that not everyone can set up an arbitrary number of nodes. Instead, it’s required that nodes are only hosted by a so-called “BigchainDB consortium”, in which different elected and know-authorities run the nodes. For the Captain's Log this distribution is archived by the Substrate-based governance (see [Governance – The Federation](#governance)). A benefit of using BigchainDB compared to a regular blockchain is that every element of the metadata is easily and directly searchable, without the requirement of additional services. Moreover, Substrate nodes aren’t optimized for data querying and, constant requests could cause issues with the performance of the nodes. This is one of the reasons, why the Captain's Log stores certain redundant information. Furthermore, the interaction with the BigchainDB is free and doesn’t require a user to own something specific to the network, like a token, to create a metadata entry. 
 
 The database layer essentially stores Decentralized Identifiers Documents (DDOs). A DDO document is composed of standard DDO attributes like:
 
@@ -170,11 +172,11 @@ The user number 1 requests a file from user number 3 via a location-based reques
 
 Apart from the above information, the metadata layer also stores availability and validation data. This is essentially data provided by other people than the publisher, which describes the uploaded content in more detail. The availability data helps to provide information about the availability of content in a distributed network. This is essential in cases where no one provides a permanent storage for uploaded content. The data validation is essentially a trust layer, in which different persons can rate the quality of the provided data. 
 
-Rather than trying to find one single truth directly on the blockchain (e.g., token-curated registry), the metadata system uses a subscription-based system on the Captain’s Log (see image below). Reasons for this are the expected high frequency of changes and updates to the metadata as well as the different interests when it comes to search-topics.
+Rather than trying to find one single truth directly on the blockchain (e.g., Token Curated Registry (TCR)), the metadata system uses a subscription-based system on the Captain’s Log (see image below). Reasons for this are the expected high frequency of changes and updates to the metadata as well as the different interests when it comes to search-topics.
 
 <img src="https://github.com/PACTCare/Stars-Network/blob/master/images/captainslog.png" width="600px">
 
-This means that content publishers store immutable metadata and unavailability data on the chain. Consumers can then decide which publishers (signatures) they trust and follow. In practice, this will be automatically archived by rules hard-coded into the interface (e.g., dweb.page). The benefit of the system is the immediate availability of information without the requirement of an additional voting system nor a filtering system, which takes individual preferences into account. In case it’s requested, a token-curated register or something similar can at any time be implement as smart contract on the Starlog layer.  
+This means that content publishers store immutable metadata and unavailability data on the chain. Consumers can then decide which publishers (signatures) they trust and follow. In practice, this will be automatically archived by rules hard-coded into the interface (e.g., dweb.page). The benefit of the system is the immediate availability of information without the requirement of an additional voting system nor a filtering system, which takes individual preferences into account. In case it’s requested, a TCR for metadata or something similar can at any time be implement as smart contract on the Starlog layer.  
 
 <h3 id="starspace">
   Starspace – IPFS
@@ -206,15 +208,19 @@ Where TU is the "uptime" and TD is the "down time", in seconds. θ is the time o
   Incentive – Stars
 </h2>
 
-The monetary token and voting power of the network is called Star. All monetary transactions in the network, like paying for unique names, fees or participating in smart contract marketplaces require Stars as a payment token. However, the goal is to make it as easier as possible to use other currencies for payment. Therefore, systems like Chainlink [\[18\]][18] will be implemented in a later stage to make it even possible to use fiat for buying digital goods without trusting a centralized authority. The ability to exchange different currencies almost instantly makes it unnecessary to implement a two-token system, in which a stable coin is used for monetary transactions, and another token is used for staking. 
+The monetary token and voting power of the network is called Star. The Stars token is based on the ERC20 token with added lock and unlock functions for staking. Staking is required for participating in the governance process (see [Governance – The Federation](#governance)) as well as for validating data. 
 
-It’s important to notice that pure metadata transactions on the Captain’s Log don’t require any payment. This way it’s ensured that people don’t need to own anything to participate in the network and to share their metadata. Only if they want to trade their data, own a unique name, vote for network participants or have an additional level of security, the participation in the network is required. 
+All monetary transactions in the network, like paying for unique names, fees or participating in smart contract marketplaces require Stars as a payment token. However, the goal is to make it as easier as possible to use other currencies for payment. Therefore, systems like Chainlink [\[18\]][18] will be implemented in a later stage to make it even possible to use fiat for buying digital goods without trusting a centralized authority. The ability to exchange different currencies almost instantly makes it unnecessary to implement a two-token system, in which a stable coin is used for monetary transactions, and another token is used for staking. 
+
+It’s important to notice that pure metadata transactions on the Captain’s Log don’t require any payment. This way it’s ensured that people don’t need to own anything to participate in the network and to share their metadata. Only if they want to trade their data, own a unique name, stack in data, vote for network participants or have an additional level of security, the participation in the network is required. 
 
 <h2 id="governance">
   Governance – The Federation 
 </h2>
 
-Without a proper governance structure right from the start, a network like this would be unable to adapt to future developments or split into different systems that represent different opinions (see Bitcoin Forks). The government of the Stars Network is called Federation and is based on Proof-of-Stake system. All Stars holders are part of the Federation, which means they have the right to vote for a Captain’s Log, Starbridge provider or specific network-related suggestions. Voting is incentivized by an inflation rate, which means that the ones participating in the voting process will receive an appropriate share of new Stars. Voting takes place infrequently, and the Star tokens need to be staked to participate in the voting process. In the case of voting for malicious parties the staked Star tokens are lost.
+Without a proper governance structure right from the start, a network like this would be unable to adapt to future developments or split into different systems that represent different opinions (e.g. Bitcoin Forks). The government of the Stars Network is called Federation and is based on Proof-of-Stake system. All Stars holders are part of the Federation, which means they have the right to vote for a Captain’s Log, Starbridge provider or specific network-related suggestions. The voting for the Captain’s Log and Starbridge provider will be based on a TCR.
+
+Voting is incentivized by an inflation rate, which means that the ones participating in the voting process will receive an appropriate share of new Stars. Voting takes place infrequently, and the Star tokens need to be staked to participate in the voting process. In the case of voting for malicious parties the staked Star tokens are lost.
 
 Similar Captain’s Log and Starbridge provider need to put a certain number of tokens at stake to be listed as potential candidates. If they get successfully elected and act malicious, they will lose all their staked tokens. This is especially important for the proof-of-authority based Captain’s Log setup, where a system which only puts the identity at stake might not be a sufficient incentive to deliver the most secure network. [\[19\]][19]  
 
