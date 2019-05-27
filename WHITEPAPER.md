@@ -2,7 +2,7 @@
 
 **A Vision of a Distributed, Free and Collectible Web**
 
-Draft 0.1, May 2019, [David Hawig](https://github.com/Noc2) (david.hawig[at]pact[dot]care), [PACT Care B.V.](https://pact.care/)
+Draft 0.11, May 2019, [David Hawig](https://github.com/Noc2) (david.hawig[at]pact[dot]care), [PACT Care B.V.](https://pact.care/)
 
 _If you want to help either join our **[discord server](https://discord.gg/VMj7PFN)** or you can open an issue. You can also submit pull requests to this repository._
 
@@ -19,6 +19,8 @@ _If you want to help either join our **[discord server](https://discord.gg/VMj7P
   - [Starbridge – WebSocket Client](#starbridge)
 - [Incentive – Stars](#incentive)
 - [Governance – The Federation](#governance)
+  - [Tokens at Stake](#tokens)
+  - [Identity at Stake](#identity)
 - [Conclusion](#conclusion)
 - [Citations](#citations)
 
@@ -90,7 +92,7 @@ Different Starlog layers can connect via Bridges. Starlog itself stores Decentra
   Starlog – Substrate 
 </h3>
 
-Substrate is an open source framework by Parity Technologies to develop blockchains in rust. It can connect via so-called Bridges and Parachains to enable a future multichain network. This framework enables a diverse and scalable web, in which all kinds of distributed hosted applications use smart contracts or simple runtimes. Additionally, it includes upgradability right from the start, without the necessity of hard forks and makes use of the hybrid GRANDPA (GHOST-based Recursive ANcestor Deriving Prefix Agreement) and BABE (Blind Assignment for Blockchain Extension) consensus algorithm. BABE is the block production mechanism that determines the producer of new blocks. GRANDPA combines probabilistic, Proof-of-work-like finality with byzantine provable finality [\[12\]][12]. In GRANDPA, validators vote for blocks at different heights. As soon as a block has more than 2/3 of the votes this block becomes part of the chain. If there are different parts of the chain, people follow the chain which has more then 2/3 of the vote, so in the image the chain on the bottom. 
+Substrate is an open source framework by Parity Technologies to develop blockchains in rust. It can connect via so-called Bridges and Parachains to enable a future multichain network. This framework enables a diverse and scalable web, in which all kinds of distributed hosted applications use smart contracts or simple runtimes. Additionally, it includes upgradability right from the start, without the necessity of hard forks and makes use of the hybrid GRANDPA (GHOST-based Recursive ANcestor Deriving Prefix Agreement) and BABE (Blind Assignment for Blockchain Extension) consensus algorithm. BABE is the block production mechanism that determines the producer of new blocks. GRANDPA combines probabilistic, Proof-of-Work-like finality with byzantine provable finality [\[12\]][12]. In GRANDPA, validators vote for blocks at different heights. As soon as a block has more than 2/3 of the votes this block becomes part of the chain. If there are different parts of the chain, people follow the chain which has more than 2/3 of the vote, so in the image the chain on the bottom. 
 
 <img src="https://github.com/PACTCare/Stars-Network/blob/master/images/grandpa.png" width="400px">
 
@@ -100,21 +102,21 @@ Since Starlog stores data entries permanently and based on a network consensus, 
 
 | Attribute         | Type | Description                                         |
 | ----------------- | -------- | --------------------------------------------------- |
-| **DID**         | Vec\<u8\> | Decentralized Identifier (max. length 80 character) |
-| **unique name**   | Vec\<u8\> | An optional unique name (max. length 40 character) |
+| **DID**         | Vec\<u8\> | Decentralized Identifier (max. length 100 characters) |
+| **unique name**   | Vec\<u8\> | An optional unique name (max. length 50 characters) |
 | **license code**      | u16 | Numbers referencing the license of the data |
-| **storage location**      | Vec\<u8\> | The primary/initial storage location of the data and thumbnail (max. length 80 character) |
+| **storage location**      | Vec\<u8\> | The primary/initial storage location of the data and thumbnail (max. length 100 characters) |
 | **timestamp**      | Time | The timestamp of the entry |
 
-All types herby only allow a limited size to keep the information on the chain per transaction to a minimum to prevent potential denial of service attacks. 
+All types of attributes allow only a limited size to keep the information on the chain per transaction to a minimum to prevent potential denial of service attacks.
 
 The DID points to the metadata storage. For example, the following string represents a valid Starlog DID: 
 
 _did:bcdb:0b51b44e0330995979a5ddaa206260b1c18e2471ad51043c27d68d8a9c40261f_
 
-The prefix “did” stands for decentralized identifier and “bcdb” means “BigchainDB”. The rest of the DID is the BigchainDB transaction id of the first metadata upload, which is a SHA3-256 hash of the transaction. This hash can be used to track all future update to the metadata entry on BigchainDB. A similar system could, for example, be implemented with IOTAs Masked Authenticated Messaging (MAM). 
+The prefix “did” stands for decentralized identifier and “bcdb” means “BigchainDB”. The rest of the DID is the BigchainDB transaction id of the first metadata upload, which is a SHA3-256 hash of the transaction. This hash can be used to track all future updates to the metadata entry on BigchainDB. A similar system could, for example, be implemented with IOTAs Masked Authenticated Messaging (MAM). 
 
-Starlog allows users to register unique names similar to domain names, which can be combined with the metadata. The concept behind the names and the DIDs is based on the Ethereum Non-fungible Token Standard. Because of this, every Starlog DID and name entry is unique and, therefore, collectible as well as tradable. The Substrate chain also stores the ownership rights and the content license in the form of a numeric license code, which also allows to log delete requests for owned content publicly. As a result, each number of the license code represents a specific license state. This system allows content creators to provide signed information about the usage rights of their work. Thus, enabling a technical possible solution for the EU Copyright Directive and GDPR compliance. 
+Starlog allows users to register unique names similar to domain names, which can be combined with the metadata. The concept behind the names and the DIDs is based on the Ethereum Non-fungible Token Standard. Because of this, every Starlog DID and name entry is unique and, therefore, collectible as well as tradable. The Substrate chain also stores the ownership rights and the content license in the form of a numeric license code, which also allows to log delete requests for owned content publicly. As a result, each number of the license code represents a specific license state. The system makes it possible for content creators to provide signed information about the usage rights of their work, thus enabling a possible technical solution for the EU Copyright Directive and GDPR compliance.
 
 The storage location provides the location of an initial permanent storage provider, which ensures the availability of a file in a distributed network.  The main benefit of the timestamp is to provide a trusted timestamping service for all kinds of digital content. This can, for example, be useful to prove the existence of certain documents. 
 
@@ -190,7 +192,7 @@ Starspace only stores information based on individual requests. Thus, informatio
   Starbridge – WebSocket Client
 </h3>
 
-Starlog talks to other layers via an event-based system, which is triggered based on specific chain events. For example, in case a user logs a delete request on Starlog, it needs to be ensured that the specific Captain’s Log and Starspace also receive this information. The Starbridges subscribe to these events via a WebSocket connection and ensure the appropriate action on the storage or metadata layers. Different Starbridges are hereby responsible for different block numbers. Once the update is executed, they log the result after a certain time on Starlog. The result can also be an unsuccessful execution. If this is the case or if the log entry doesn’t appear at all, the next Starbridge takes care of the job. 
+Starlog talks to other layers via an event-based system, which is triggered based on specific chain events. For example, in case a user logs a delete request on Starlog, it needs to be ensured that the specific Captain’s Log and Starspace also receive this information. The Starbridges subscribe to these events via a WebSocket connection and ensure the appropriate action on the storage or metadata layers. Different groups of Starbridges are randomly responsible for different block numbers. One group member is responsible for sending the information, and the rest of the group are checking and potentially challenging the execution of this selected member. Once the update is executed, only unsuccessful executions (e.g. due to network issues) are logged on Starlog. If this is the case the next group of Starbridge takes care of the job. 
 
 <img src="https://github.com/PACTCare/Stars-Network/blob/master/images/starbridge.png" width="550px">
 
@@ -212,21 +214,43 @@ The monetary token and voting power of the network is called Star. The Stars tok
 
 All monetary transactions in the network, like paying for unique names, fees or participating in smart contract marketplaces require Stars as a payment token. However, the goal is to make it as easier as possible to use other currencies for payment. Therefore, systems like Chainlink [\[18\]][18] will be implemented in a later stage to make it even possible to use fiat for buying digital goods without trusting a centralized authority. The ability to exchange different currencies almost instantly makes it unnecessary to implement a two-token system, in which a stable coin is used for monetary transactions, and another token is used for staking. 
 
-It’s important to notice that pure metadata transactions on the Captain’s Log don’t require any payment. This way it’s ensured that people don’t need to own anything to participate in the network and to share their metadata. Only if they want to trade their data, own a unique name, stack in data, vote for network participants or have an additional level of security, the participation in the network is required. 
+It’s important to notice that pure metadata transactions on the Captain’s Log don’t require any payment. This way it’s ensured that people don’t need to own anything to participate in the network and to share their metadata. Only if they want to trade their data, own a unique name, stack in data, vote for network participants or have an additional level of security, the participation in the network is required.
 
 <h2 id="governance">
   Governance – The Federation 
 </h2>
 
-Without a proper governance structure right from the start, a network like this would be unable to adapt to future developments or split into different systems that represent different opinions (e.g. Bitcoin Forks). The government of the Stars Network is called Federation and is based on Proof-of-Stake system. All Stars holders are part of the Federation, which means they have the right to vote for a Captain’s Log, Starbridge provider or specific network-related suggestions. The voting for the Captain’s Log and Starbridge provider will be based on a TCR.
+Without a proper governance structure right from the start, a network like this would be unable to adapt to future developments or split into different systems that represent different opinions (e.g. Bitcoin Forks). That’s why governance and Mechanism Design for cryptoeconomic applications is the most important part of any distributed ledger project. [\[19\]][19] [\[20\]][20]
 
-Voting is incentivized by an inflation rate, which means that the ones participating in the voting process will receive an appropriate share of new Stars. Voting takes place infrequently, and the Star tokens need to be staked to participate in the voting process. In the case of voting for malicious parties the staked Star tokens are lost.
+<h3 id="tokens">
+  Tokens at Stake
+</h3>
 
-Similar Captain’s Log and Starbridge provider need to put a certain number of tokens at stake to be listed as potential candidates. If they get successfully elected and act malicious, they will lose all their staked tokens. This is especially important for the proof-of-authority based Captain’s Log setup, where a system which only puts the identity at stake might not be a sufficient incentive to deliver the most secure network. [\[19\]][19]  
+The government of the Stars Network is called Federation and is based on Proof-of-Stake system. All Stars holders are part of the Federation, which means they have the right to vote for a Captain’s Log, Starbridge provider or specific network-related suggestions. The Stars Network will also implement delegative or liquid democracy. This means that everyone has the ability to vote themselves or to delegate their vote to someone else. The voting for the Captain’s Log and Starbridge provider will be based on a Layered TCR [\[21\]][21]. 
 
-In general, the Star Network is able to store transaction in a clear and legally binding way. But, at the same time, it can also be used under complete anonymity. Knowing that legally binding contracts are sufficient in a lot of use cases, the first iteration of the Stars Network will focus on supporting these legal structures. Let’s take the example of a delete request. Normally, changing the license code on Starlog would automatically delete the related content on Starspace. However, a malicious party might suppress a successful execution of this request. But since the malicious party, as well as the request, are publicly immutable logged, it’s easy to take appropriate steps to sue the specific persons or legal entity. 
+Voting is incentivized through inflation funding, which means that the ones participating in the voting process will receive an appropriate share of new Stars. In the case of voting for malicious parties the staked Star tokens are lost. Voting takes place infrequently, and the Star tokens need to be staked as well as locked up for a certain period of time to participate in the voting process. The total voting power VP a user has during a certain time period T can be calculated with the following equation proposed Vitalik [\[22\]][22].
 
-Another example of this legal application are hash-based ownership rights. At this point, Starlog only provides the necessary, immutable infrastructure for a centralized, publicly auditable marketplace to integrate the tradability of digital goods and implement the necessary authentication layers. The reason for this is that the provided hashes and similarity digest don’t provide clear information to decide, on-chain, the difference between new content and copied content, since an authentication service is a key requirement.  At a later stage, it might be possible to fully decentralize these systems based on decentralized authentication services.  
+```
+T² * S = VP
+```
+
+S stands for the number of locked up tokens and T is the lock up time. This leads to a high incentive to lock up your tokens as long as possible and therefore means more voting power requires living with your decisions for longer. Furthermore, the user can decide how to allocate his voting power, which means he could theoretically use the complete voting power on a single vote. 
+
+Similar Captain’s Log and Starbridge provider need to put a certain number of tokens at stake to be listed as potential candidates. If they get successfully elected and act malicious, they will lose all their staked tokens. This is especially important for the proof-of-authority based Captain’s Log setup, where a system which only puts the identity at stake might not be a sufficient incentive to deliver the most secure network. [\[23\]][23]  
+
+<h3 id="identity">
+  Identity at Stake
+</h3>
+
+In general, the Star Network is able to store transaction in a clear and potentially [\[24\]][24] legally binding way. But, at the same time, it can also be used under complete anonymity. Knowing that legally binding contracts are sufficient in a lot of use cases, the first iteration of the Stars Network will focus on supporting these legal structures. Let’s take the example of a delete request. Normally, changing the license code on Starlog would automatically delete the related content on Starspace. However, a malicious party might suppress a successful execution of this request. But since the malicious party, as well as the request, are publicly immutable logged, it’s easy to take appropriate steps to sue the specific persons or legal entity. Another example of this legal application are hash-based ownership rights.
+
+To support this legal structure, the Stars Network implements decentralized authentication services, like for example Civic [\[25\]][25] or SelfKey [\[26\]][26]. A fully verified identity gets a higher voting power, compared to an entirely anonymous token holder. The following equation represents the voting power VP of a verified user.  
+
+```
+(T*2)² * S = VP
+```
+
+By multiplying the lock-up time by two, a verified users receive the same voting power like an anonymous user by staking his tokens for half the time. 
 
 ## Conclusion
 
@@ -252,8 +276,14 @@ This paper presents a first version of a distributed and decentralized metadata 
 [16]: http://bayes.wustl.edu/etj/articles/confidence.pdf 
 [17]: https://stats.stackexchange.com/questions/6636/probability-calculation-system-uptime-likelihood-of-occurence
 [18]: https://chain.link/
-[19]: https://medium.com/@timdaub/why-you-shouldnt-ship-to-a-poa-network-7e2b5aa83aa9
-
+[19]: https://medium.com/@FEhrsam/blockchain-governance-programming-our-future-c3bfe30f2d74
+[20]: https://medium.com/blockchannel/a-crash-course-in-mechanism-design-for-cryptoeconomic-applications-a9f06ab6a976
+[21]: https://blog.oceanprotocol.com/the-layered-tcr-56cc5b4cdc45
+[22]: https://www.reddit.com/r/ethereum/comments/4rtpmm/on_coinlock_voting_futarchy_and_optimal/
+[23]: https://medium.com/@timdaub/why-you-shouldnt-ship-to-a-poa-network-7e2b5aa83aa9
+[24]: https://www.eublockchainforum.eu/sites/default/files/report_identity_v0.9.4.pdf?width=1024&height=800&iframe=true
+[25]: https://www.civic.com/
+[26]: https://selfkey.org/
 
 * [1] Dweb: https://www.theguardian.com/technology/2018/sep/08/decentralisation-next-big-step-for-the-world-wide-web-dweb-data-internet-censorship-brewster-kahle
 * [2] IPFS: https://ipfs.io/
@@ -273,4 +303,12 @@ This paper presents a first version of a distributed and decentralized metadata 
 * [16] Confidence Intervals vs. Bayesian Intervals: http://bayes.wustl.edu/etj/articles/confidence.pdf 
 * [17] Probability calculation, system uptime, likelihood of occurence: https://stats.stackexchange.com/questions/6636/probability-calculation-system-uptime-likelihood-of-occurence
 * [18] Chainlink: https://chain.link/
-* [19] Why you shouldn’t ship to a POA network: https://medium.com/@timdaub/why-you-shouldnt-ship-to-a-poa-network-7e2b5aa83aa9
+* [19] Blockchain Governance: https://medium.com/@FEhrsam/blockchain-governance-programming-our-future-c3bfe30f2d74
+* [20] A Crash Course in Mechanism Design for Cryptoeconomic Applications: https://medium.com/blockchannel/a-crash-course-in-mechanism-design-for-cryptoeconomic-applications-a9f06ab6a976
+* [21] The Layered TCR: https://blog.oceanprotocol.com/the-layered-tcr-56cc5b4cdc45
+* [22] On Coin-lock voting: https://www.reddit.com/r/ethereum/comments/4rtpmm/on_coinlock_voting_futarchy_and_optimal/
+* [23] Why you shouldn’t ship to a POA network: https://medium.com/@timdaub/why-you-shouldnt-ship-to-a-poa-network-7e2b5aa83aa9
+* [24] Blockchain and Digital Identity: https://www.eublockchainforum.eu/sites/default/files/report_identity_v0.9.4.pdf?width=1024&height=800&iframe=true
+* [25] Civic: https://www.civic.com/
+* [26] SelfKey: https://selfkey.org/
+
