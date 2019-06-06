@@ -216,19 +216,31 @@ All monetary transactions in the network, like paying for unique names, fees or 
 
 It’s important to notice that pure metadata transactions on the Captain’s Log don’t require any payment. This way it’s ensured that people don’t need to own anything to participate in the network and to share their metadata. Only if they want to trade their data, own a unique name, stack in data, vote for network participants or have an additional level of security, the participation in the network is required.
 
+In contrast to the Captain’s Log all transactions on Starlog require a minimal base fee, which is almost zero.  Additionally, a fee which depends on the size of the transaction is charged.  Furthermore, the registration of unique names requires a payment, which is the lower the longer the name is.   
+
+In contrast to the Captain’s Log, all transactions on Starlog require a base fee, which is almost zero. Additionally, a fee, depending on the size of the transaction, is charged.  Furthermore, the registration of unique names requires a payment, which is the lower, the longer the name is.   
+The fee for unique names can be calculated based on the maximum allowed characters of a unique name UNmax, the length of the unique name UNlen and a constant fee in the following way:
+
+```
+F = (UNmax + 1 - UNlen)² * Fcon
+
+```
+
+Due to the almost infinite number of available names, this algorithmic pricing is more practical compared to an auction-based system. [\[19\]][19] The fixed constant fee will be relatively high at the beginning and decline over time, depending on an on-chain voting system. 
+
 <h2 id="governance">
   Governance – The Federation 
 </h2>
 
-Without a proper governance structure right from the start, a network like this would be unable to adapt to future developments or split into different systems that represent different opinions (e.g. Bitcoin Forks). That’s why governance and Mechanism Design for cryptoeconomic applications is the most important part of any distributed ledger project. [\[19\]][19] [\[20\]][20]
+Without a proper governance structure right from the start, a network like this would be unable to adapt to future developments or split into different systems that represent different opinions (e.g. Bitcoin Forks). That’s why governance and Mechanism Design for cryptoeconomic applications is the most important part of any distributed ledger project. [\[20\]][20] [\[21\]][21]
 
 <h3 id="tokens">
   Tokens at Stake
 </h3>
 
-The government of the Stars Network is called Federation and is based on Proof-of-Stake system. All Stars holders are part of the Federation, which means they have the right to vote for a Captain’s Log, Starbridge provider or specific network-related suggestions. The Stars Network will also implement delegative or liquid democracy. This means that everyone has the ability to vote themselves or to delegate their vote to someone else. The voting for the Captain’s Log and Starbridge provider will be based on a Layered TCR [\[21\]][21]. 
+The government of the Stars Network is called Federation and is based on Proof-of-Stake system. All Stars holders are part of the Federation, which means they have the right to vote for a Captain’s Log, Starbridge provider or specific network-related suggestions. The Stars Network will also implement delegative or liquid democracy. This means that everyone has the ability to vote themselves or to delegate their vote to someone else. The voting for the Captain’s Log and Starbridge provider will be based on a Layered TCR [\[22\]][22]. 
 
-Voting is incentivized through inflation funding, which means that the ones participating in the voting process will receive an appropriate share of new Stars. In the case of voting for malicious parties the staked Star tokens are lost. Voting takes place infrequently, and the Star tokens need to be staked as well as locked up for a certain period of time to participate in the voting process. The total voting power VP a user has during a certain time period T can be calculated with the following equation proposed Vitalik [\[22\]][22].
+Voting is incentivized through inflation funding, which means that the ones participating in the voting process will receive an appropriate share of new Stars. In the case of voting for malicious parties the staked Star tokens are lost. Voting takes place infrequently, and the Star tokens need to be staked as well as locked up for a certain period of time to participate in the voting process. The total voting power VP a user has during a certain time period T can be calculated with the following equation proposed Vitalik [\[23\]][23].
 
 ```
 T² * S = VP
@@ -236,15 +248,15 @@ T² * S = VP
 
 S stands for the number of locked up tokens and T is the lock up time. This leads to a high incentive to lock up your tokens as long as possible and therefore means more voting power requires living with your decisions for longer. Furthermore, the user can decide how to allocate his voting power, which means he could theoretically use the complete voting power on a single vote. 
 
-Similar Captain’s Log and Starbridge provider need to put a certain number of tokens at stake to be listed as potential candidates. If they get successfully elected and act malicious, they will lose all their staked tokens. This is especially important for the proof-of-authority based Captain’s Log setup, where a system which only puts the identity at stake might not be a sufficient incentive to deliver the most secure network. [\[23\]][23]  
+Similar Captain’s Log and Starbridge provider need to put a certain number of tokens at stake to be listed as potential candidates. If they get successfully elected and act malicious, they will lose all their staked tokens. This is especially important for the proof-of-authority based Captain’s Log setup, where a system which only puts the identity at stake might not be a sufficient incentive to deliver the most secure network. [\[24\]][24]  
 
 <h3 id="identity">
   Identity at Stake
 </h3>
 
-In general, the Star Network is able to store transaction in a clear and potentially [\[24\]][24] legally binding way. But, at the same time, it can also be used under complete anonymity. Knowing that legally binding contracts are sufficient in a lot of use cases, the first iteration of the Stars Network will focus on supporting these legal structures. Let’s take the example of a delete request. Normally, changing the license code on Starlog would automatically delete the related content on Starspace. However, a malicious party might suppress a successful execution of this request. But since the malicious party, as well as the request, are publicly immutable logged, it’s easy to take appropriate steps to sue the specific persons or legal entity. Another example of this legal application are hash-based ownership rights.
+In general, the Star Network is able to store transaction in a clear and potentially [\[25\]][25] legally binding way. But, at the same time, it can also be used under complete anonymity. Knowing that legally binding contracts are sufficient in a lot of use cases, the first iteration of the Stars Network will focus on supporting these legal structures. Let’s take the example of a delete request. Normally, changing the license code on Starlog would automatically delete the related content on Starspace. However, a malicious party might suppress a successful execution of this request. But since the malicious party, as well as the request, are publicly immutable logged, it’s easy to take appropriate steps to sue the specific persons or legal entity. Another example of this legal application are hash-based ownership rights.
 
-To support this legal structure, the Stars Network implements decentralized authentication services, like for example Civic [\[25\]][25] or SelfKey [\[26\]][26]. A fully verified identity gets a higher voting power, compared to an entirely anonymous token holder. The following equation represents the voting power VP of a verified user.  
+To support this legal structure, the Stars Network implements decentralized authentication services, like for example Civic [\[26\]][26] or SelfKey [\[27\]][27]. A fully verified identity gets a higher voting power, compared to an entirely anonymous token holder. The following equation represents the voting power VP of a verified user.  
 
 ```
 (T*2)² * S = VP
@@ -254,7 +266,7 @@ By multiplying the lock-up time by two, a verified users receive the same voting
 
 ## Conclusion
 
-This paper presents a first version of a distributed and decentralized metadata system, which tries to achieve high distribution, free accessibility, and collectability for digital content. 
+This paper presents a first version of a distributed and decentralized metadata system, which tries to achieve high distribution, free accessibility, and collectability for digital content. The current status is far from perfect and we encourage everyone to participate in improving this paper.  
 
 ## Citations
 
@@ -276,14 +288,15 @@ This paper presents a first version of a distributed and decentralized metadata 
 [16]: http://bayes.wustl.edu/etj/articles/confidence.pdf 
 [17]: https://stats.stackexchange.com/questions/6636/probability-calculation-system-uptime-likelihood-of-occurence
 [18]: https://chain.link/
-[19]: https://medium.com/@FEhrsam/blockchain-governance-programming-our-future-c3bfe30f2d74
-[20]: https://medium.com/blockchannel/a-crash-course-in-mechanism-design-for-cryptoeconomic-applications-a9f06ab6a976
-[21]: https://blog.oceanprotocol.com/the-layered-tcr-56cc5b4cdc45
-[22]: https://www.reddit.com/r/ethereum/comments/4rtpmm/on_coinlock_voting_futarchy_and_optimal/
-[23]: https://medium.com/@timdaub/why-you-shouldnt-ship-to-a-poa-network-7e2b5aa83aa9
-[24]: https://www.eublockchainforum.eu/sites/default/files/report_identity_v0.9.4.pdf?width=1024&height=800&iframe=true
-[25]: https://www.civic.com/
-[26]: https://selfkey.org/
+[19]: http://randomwalker.info/publications/namespaces.pdf
+[20]: https://medium.com/@FEhrsam/blockchain-governance-programming-our-future-c3bfe30f2d74
+[21]: https://medium.com/blockchannel/a-crash-course-in-mechanism-design-for-cryptoeconomic-applications-a9f06ab6a976
+[22]: https://blog.oceanprotocol.com/the-layered-tcr-56cc5b4cdc45
+[23]: https://www.reddit.com/r/ethereum/comments/4rtpmm/on_coinlock_voting_futarchy_and_optimal/
+[24]: https://medium.com/@timdaub/why-you-shouldnt-ship-to-a-poa-network-7e2b5aa83aa9
+[25]: https://www.eublockchainforum.eu/sites/default/files/report_identity_v0.9.4.pdf?width=1024&height=800&iframe=true
+[26]: https://www.civic.com/
+[27]: https://selfkey.org/
 
 * [1] Dweb: https://www.theguardian.com/technology/2018/sep/08/decentralisation-next-big-step-for-the-world-wide-web-dweb-data-internet-censorship-brewster-kahle
 * [2] IPFS: https://ipfs.io/
@@ -303,12 +316,13 @@ This paper presents a first version of a distributed and decentralized metadata 
 * [16] Confidence Intervals vs. Bayesian Intervals: http://bayes.wustl.edu/etj/articles/confidence.pdf 
 * [17] Probability calculation, system uptime, likelihood of occurence: https://stats.stackexchange.com/questions/6636/probability-calculation-system-uptime-likelihood-of-occurence
 * [18] Chainlink: https://chain.link/
-* [19] Blockchain Governance: https://medium.com/@FEhrsam/blockchain-governance-programming-our-future-c3bfe30f2d74
-* [20] A Crash Course in Mechanism Design for Cryptoeconomic Applications: https://medium.com/blockchannel/a-crash-course-in-mechanism-design-for-cryptoeconomic-applications-a9f06ab6a976
-* [21] The Layered TCR: https://blog.oceanprotocol.com/the-layered-tcr-56cc5b4cdc45
-* [22] On Coin-lock voting: https://www.reddit.com/r/ethereum/comments/4rtpmm/on_coinlock_voting_futarchy_and_optimal/
-* [23] Why you shouldn’t ship to a POA network: https://medium.com/@timdaub/why-you-shouldnt-ship-to-a-poa-network-7e2b5aa83aa9
-* [24] Blockchain and Digital Identity: https://www.eublockchainforum.eu/sites/default/files/report_identity_v0.9.4.pdf?width=1024&height=800&iframe=true
-* [25] Civic: https://www.civic.com/
-* [26] SelfKey: https://selfkey.org/
+* [19] An empirical study of Namecoin: http://randomwalker.info/publications/namespaces.pdf
+* [20] Blockchain Governance: https://medium.com/@FEhrsam/blockchain-governance-programming-our-future-c3bfe30f2d74
+* [21] A Crash Course in Mechanism Design for Cryptoeconomic Applications: https://medium.com/blockchannel/a-crash-course-in-mechanism-design-for-cryptoeconomic-applications-a9f06ab6a976
+* [22] The Layered TCR: https://blog.oceanprotocol.com/the-layered-tcr-56cc5b4cdc45
+* [23] On Coin-lock voting: https://www.reddit.com/r/ethereum/comments/4rtpmm/on_coinlock_voting_futarchy_and_optimal/
+* [24] Why you shouldn’t ship to a POA network: https://medium.com/@timdaub/why-you-shouldnt-ship-to-a-poa-network-7e2b5aa83aa9
+* [25] Blockchain and Digital Identity: https://www.eublockchainforum.eu/sites/default/files/report_identity_v0.9.4.pdf?width=1024&height=800&iframe=true
+* [26] Civic: https://www.civic.com/
+* [27] SelfKey: https://selfkey.org/
 
