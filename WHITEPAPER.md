@@ -210,7 +210,7 @@ Where TU is the "uptime" and TD is the "down time", in seconds. θ is the time o
   Incentive – Stars
 </h2>
 
-The monetary token and voting power of the network is called Star. The Stars token is based on the ERC20 token with added lock and unlock functions for staking. Staking is required for participating in the governance process (see [Governance – The Federation](#governance)) as well as for validating data. 
+The monetary token and voting power of the network is called Star. Staking is required for participating in the governance process (see [Governance – The Federation](#governance)) as well as for validating data. 
 
 All monetary transactions in the network, like paying for unique names, fees or participating in smart contract marketplaces require Stars as a payment token. However, the goal is to make it as easier as possible to use other currencies for payment. Therefore, systems like Chainlink [\[18\]][18] will be implemented in a later stage to make it even possible to use fiat for buying digital goods without trusting a centralized authority. The ability to exchange different currencies almost instantly makes it unnecessary to implement a two-token system, in which a stable coin is used for monetary transactions, and another token is used for staking. 
 
@@ -223,7 +223,6 @@ The fee for unique names can be calculated based on the maximum allowed characte
 
 ```
 F = (UNmax + 1 - UNlen)² * Fcon
-
 ```
 
 Due to the almost infinite number of available names, this algorithmic pricing is more practical compared to an auction-based system. [\[19\]][19] The fixed constant fee will be relatively high at the beginning and decline over time, depending on an on-chain voting system. 
@@ -238,7 +237,17 @@ Without a proper governance structure right from the start, a network like this 
   Tokens at Stake
 </h3>
 
-The government of the Stars Network is called Federation and is based on Proof-of-Stake system. All Stars holders are part of the Federation, which means they have the right to vote for a Captain’s Log, Starbridge provider or specific network-related suggestions. The Stars Network will also implement delegative or liquid democracy. This means that everyone has the ability to vote themselves or to delegate their vote to someone else. The voting for the Captain’s Log and Starbridge provider will be based on a Layered TCR [\[22\]][22]. 
+The government of the Stars Network is called Federation and is based on Proof-of-Stake system. All Stars holders are part of the Federation, which means they have the right to vote for a Captain’s Log, Starbridge provider or specific network-related suggestions. The Stars Network will also implement delegative or liquid democracy. This means that everyone has the ability to vote themselves or to delegate their vote to someone else. The voting system will be based on a Layered TCR with the following ranks [\[22\]][22]: 
+
+| Name         | Rank | Criteria  | Description                                         |
+| ----------------- | -------- | -------- | --------------------------------------------------- |
+| **Admiral**         | 4 | - | Starlog Provider |
+| **Captain**   | 3 | - | Captain's Log Provider |
+| **Engineer**      | 2 | - | Starspace Provider |
+| **Crew** | 1 | -| Minimum numbers of tokens at stake |
+| **Guest** | 0 | - | Token holder with less then the minimum number of tokens staked |
+
+Each user can only occupy one rank at a time.
 
 Voting is incentivized through inflation funding, which means that the ones participating in the voting process will receive an appropriate share of new Stars. In the case of voting for malicious parties the staked Star tokens are lost. Voting takes place infrequently, and the Star tokens need to be staked as well as locked up for a certain period of time to participate in the voting process. The total voting power VP a user has during a certain time period T can be calculated with the following equation proposed Vitalik [\[23\]][23].
 
