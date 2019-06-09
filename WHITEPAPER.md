@@ -21,6 +21,7 @@ _If you want to help either join our **[discord server](https://discord.gg/VMj7P
 - [Governance – The Federation](#governance)
   - [Tokens at Stake](#tokens)
   - [Identity at Stake](#identity)
+  - [Development Incentive](#development)
 - [Conclusion](#conclusion)
 - [Citations](#citations)
 
@@ -272,7 +273,13 @@ To support this legal structure, the Stars Network implements decentralized auth
 (T*2)² * S = VP
 ```
 
-By multiplying the lock-up time by two, a verified users receive the same voting power like an anonymous user by staking his tokens for half the time. 
+By multiplying the lock-up time by two, the verified users receive the same voting power like an anonymous user by staking their tokens for half the time. 
+
+<h3 id="development">
+  Development Incentive
+</h3>
+
+Today most distributed ledger projects either don’t offer an incentive for developers to contribute to the core protocol or they offer financial grants via foundations. The Stars Network tries to integrate this incentive layer into the core protocol itself. Developers can present a selected group of the protocol detailed development proposals.  If these proposals are excepted and after the code is integrated into the core protocol, the developers will be incentivized through inflation funding. The goal of this is to create a much bigger incentive to keep developing the protocol layer. For example, a one percent inflation of Ethereum to develop Ethereum 2.0 would offer an enormous incentive to developers worldwide to develop this upgrade. 
 
 ## Conclusion
 
