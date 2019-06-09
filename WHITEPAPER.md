@@ -241,7 +241,8 @@ The government of the Stars Network is called Federation and is based on Proof-o
 
 | Name         | Rank | Criteria  | Description                                         |
 | ----------------- | -------- | -------- | --------------------------------------------------- |
-| **Admiral**         | 4 | - | Starlog Provider |
+| **Admiral**         | 5 | - | Starlog Provider |
+| **Section 31**   | 4 | - | Starbridge Provider |
 | **Captain**   | 3 | - | Captain's Log Provider |
 | **Engineer**      | 2 | - | Starspace Provider |
 | **Crew** | 1 | -| Minimum numbers of tokens at stake |
