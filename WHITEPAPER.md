@@ -179,7 +179,7 @@ Rather than trying to find one single truth directly on the blockchain (e.g., To
 
 <img src="https://github.com/PACTCare/Stars-Network/blob/master/images/captainslog.png" width="600px">
 
-This means that content publishers store immutable metadata and unavailability data on the chain. Consumers can then decide which publishers (signatures) they trust and follow. In practice, this will be automatically archived by rules hard-coded into the interface (e.g., dweb.page). The benefit of the system is the immediate availability of information without the requirement of an additional voting system nor a filtering system, which takes individual preferences into account. In case it’s requested, a TCR for metadata or something similar can at any time be implement as smart contract on the Starlog layer.  
+This means that content publishers store immutable metadata and unavailability data on the chain. Consumers can then decide which publishers (signatures) they trust and follow. In practice, this will be automatically achieved by rules hard-coded into the interface (e.g., dweb.page). The benefit of the system is the immediate availability of information without the requirement of an additional voting system nor a filtering system, which takes individual preferences into account. In case it’s requested, a TCR for metadata or something similar can at any time be implement as smart contract on the Starlog layer.  
 
 <h3 id="starspace">
   Starspace – IPFS
@@ -193,7 +193,7 @@ Starspace only stores information based on individual requests. Thus, informatio
   Starbridge – WebSocket Client
 </h3>
 
-Starlog talks to other layers via an event-based system, which is triggered based on specific chain events. For example, in case a user logs a delete request on Starlog, it needs to be ensured that the specific Captain’s Log and Starspace also receive this information. The Starbridges subscribe to these events via a WebSocket connection and ensure the appropriate action on the storage or metadata layers. Different groups of Starbridges are randomly responsible for different block numbers. One group member is responsible for sending the information, and the rest of the group are checking and potentially challenging the execution of this selected member. Once the update is executed, only unsuccessful executions (e.g. due to network issues) are logged on Starlog. If this is the case the next group of Starbridge takes care of the job. 
+Starlog talks to other layers via an event-based system, which is triggered based on specific chain events. For example, in case a user logs a delete request on Starlog, it needs to be ensured that the specific Captain’s Log and Starspace also receive this information. Starbridges subscribe to these events via a WebSocket connection and ensure the appropriate action on the storage or metadata layers. Different groups of Starbridges are randomly responsible for different block numbers. One group member is responsible for sending the information, and the rest of the group is checking and potentially challenging the execution of this selected member. Once the update is executed, only unsuccessful executions (e.g. due to network issues) are logged on Starlog. If this is the case, the next group of Starbridge takes care of the job. 
 
 <img src="https://github.com/PACTCare/Stars-Network/blob/master/images/starbridge.png" width="550px">
 
@@ -217,9 +217,7 @@ All monetary transactions in the network, like paying for unique names, fees or 
 
 It’s important to notice that pure metadata transactions on the Captain’s Log don’t require any payment. This way it’s ensured that people don’t need to own anything to participate in the network and to share their metadata. Only if they want to trade their data, own a unique name, stack in data, vote for network participants or have an additional level of security, the participation in the network is required.
 
-In contrast to the Captain’s Log all transactions on Starlog require a minimal base fee, which is almost zero.  Additionally, a fee which depends on the size of the transaction is charged.  Furthermore, the registration of unique names requires a payment, which is the lower the longer the name is.   
-
-In contrast to the Captain’s Log, all transactions on Starlog require a base fee, which is almost zero. Additionally, a fee, depending on the size of the transaction, is charged.  Furthermore, the registration of unique names requires a payment, which is the lower, the longer the name is.   
+In contrast to the Captain’s Log, all transactions on Starlog require a base fee, which is almost zero. Additionally, a fee, depending on the size of the transaction, is charged.  Furthermore, the registration of unique names requires a payment, which is the lower the longer the name is.   
 The fee for unique names can be calculated based on the maximum allowed characters of a unique name UNmax, the length of the unique name UNlen and a constant fee in the following way:
 
 ```
@@ -251,7 +249,7 @@ The government of the Stars Network is called Federation and is based on Proof-o
 
 Each user can only occupy one rank at a time.
 
-Voting is incentivized through inflation funding, which means that the ones participating in the voting process will receive an appropriate share of new Stars. In the case of voting for malicious parties the staked Star tokens are lost. Voting takes place infrequently, and the Star tokens need to be staked as well as locked up for a certain period of time to participate in the voting process. The total voting power VP a user has during a certain time period T can be calculated with the following equation proposed Vitalik [\[23\]][23].
+Voting is incentivized through inflation funding, which means that the ones participating in the voting process will receive an appropriate share of new Stars. In the case of voting for malicious parties, the staked Star tokens are lost. Voting takes place infrequently, and the Star tokens need to be staked as well as locked up for a certain period of time to participate in the voting process. The total voting power VP a user has during a certain time period T can be calculated with the following equation proposed Vitalik [\[23\]][23].
 
 ```
 T² * S = VP
@@ -259,27 +257,29 @@ T² * S = VP
 
 S stands for the number of locked up tokens and T is the lock up time. This leads to a high incentive to lock up your tokens as long as possible and therefore means more voting power requires living with your decisions for longer. Furthermore, the user can decide how to allocate his voting power, which means he could theoretically use the complete voting power on a single vote. 
 
-Similar Captain’s Log and Starbridge provider need to put a certain number of tokens at stake to be listed as potential candidates. If they get successfully elected and act malicious, they will lose all their staked tokens. This is especially important for the proof-of-authority based Captain’s Log setup, where a system which only puts the identity at stake might not be a sufficient incentive to deliver the most secure network. [\[24\]][24]  
+Similarly, the Captain’s Log and Starbridge providers need to put a certain number of tokens at stake to be listed as potential candidates. If they get successfully elected and act maliciously, they will lose all their staked tokens. This is especially important for the proof-of-authority based Captain’s Log setup, where a system which only puts the identity at stake might not be a sufficient incentive to deliver the most secure network. [\[24\]][24]  
 
 <h3 id="identity">
   Identity at Stake
 </h3>
 
-In general, the Star Network is able to store transaction in a clear and potentially [\[25\]][25] legally binding way. But, at the same time, it can also be used under complete anonymity. Knowing that legally binding contracts are sufficient in a lot of use cases, the first iteration of the Stars Network will focus on supporting these legal structures. Let’s take the example of a delete request. Normally, changing the license code on Starlog would automatically delete the related content on Starspace. However, a malicious party might suppress a successful execution of this request. But since the malicious party, as well as the request, are publicly immutable logged, it’s easy to take appropriate steps to sue the specific persons or legal entity. Another example of this legal application are hash-based ownership rights.
+In general, the Stars Network is able to store transactions in a clear and potentially [\[25\]][25] legally binding way. But, at the same time, it can also be used under complete anonymity. Knowing that legally binding contracts are sufficient in a lot of use cases, the first iteration of the Stars Network will focus on supporting these legal structures. 
 
-To support this legal structure, the Stars Network implements decentralized authentication services, like for example Civic [\[26\]][26] or SelfKey [\[27\]][27]. A fully verified identity gets a higher voting power, compared to an entirely anonymous token holder. The following equation represents the voting power VP of a verified user.  
+Let’s take the example of a delete request. Normally, changing the license code on Starlog would automatically delete the related content on Starspace. However, a malicious party might suppress a successful execution of this request. But since the malicious party, as well as the request, are publicly immutably logged, it’s easy to take appropriate steps to sue the specific persons or legal entity. Another example of this legal application are hash-based ownership rights.
+
+To support this legal structure, the Stars Network implements decentralized authentication services, such as Civic [\[26\]][26] or SelfKey [\[27\]][27]. A fully verified identity gets a higher voting power, compared to an entirely anonymous token holder. The following equation represents the voting power VP of a verified user.  
 
 ```
 (T*2)² * S = VP
 ```
 
-By multiplying the lock-up time by two, the verified users receive the same voting power like an anonymous user by staking their tokens for half the time. 
+By multiplying the lock-up time by two, verified users receive the same voting power as an anonymous user receives, by staking their tokens for only half the time. 
 
 <h3 id="development">
   Development Incentive
 </h3>
 
-Today most distributed ledger projects either don’t offer an incentive for developers to contribute to the core protocol or they offer financial grants via foundations. The Stars Network tries to integrate this incentive layer into the core protocol itself. Developers can present a selected group of the protocol detailed development proposals.  If these proposals are excepted and after the code is integrated into the core protocol, the developers will be incentivized through inflation funding. The goal of this is to create a much bigger incentive to keep developing the protocol layer. For example, a one percent inflation of Ethereum to develop Ethereum 2.0 would offer an enormous incentive to developers worldwide to develop this upgrade. 
+Today most distributed ledger projects either don’t offer an incentive for developers to contribute to the core protocol or they offer financial grants via foundations. The Stars Network tries to integrate this incentive layer into the core protocol itself. Developers can present a selected group (e.g. Admirals) of the protocol detailed development proposals.  If these proposals are accepted and after the code is integrated into the core protocol, the developers will be incentivized through inflation funding. The goal of this is to create a much bigger incentive to keep developing the protocol layer. For example, a one percent inflation of Ethereum to develop Ethereum 2.0 would offer an enormous incentive to developers worldwide to develop this upgrade. 
 
 ## Conclusion
 
