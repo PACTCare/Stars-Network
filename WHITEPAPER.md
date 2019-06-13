@@ -106,7 +106,6 @@ Since Starlog stores data entries permanently and based on a network consensus, 
 | **DID**         | Vec\<u8\> | Decentralized Identifier (max. length 100 characters) |
 | **unique name**   | Vec\<u8\> | An optional unique name (max. length 50 characters) |
 | **license code**      | u16 | Numbers referencing the license of the data |
-| **storage location**      | Vec\<u8\> | The primary/initial storage location of the data and thumbnail (max. length 100 characters) |
 | **timestamp**      | Time | The timestamp of the entry |
 
 All types of attributes allow only a limited size to keep the information on the chain per transaction to a minimum to prevent potential denial of service attacks.
@@ -119,13 +118,13 @@ The prefix “did” stands for decentralized identifier and “bcdb” means �
 
 Starlog allows users to register unique names similar to domain names, which can be combined with the metadata. The concept behind the names and the DIDs is based on the Ethereum Non-fungible Token Standard. Because of this, every Starlog DID and name entry is unique and, therefore, collectible as well as tradable. The Substrate chain also stores the ownership rights and the content license in the form of a numeric license code, which also allows to log delete requests for owned content publicly. As a result, each number of the license code represents a specific license state. The system makes it possible for content creators to provide signed information about the usage rights of their work, thus enabling a possible technical solution for the EU Copyright Directive and GDPR compliance.
 
-The storage location provides the location of an initial permanent storage provider, which ensures the availability of a file in a distributed network.  The main benefit of the timestamp is to provide a trusted timestamping service for all kinds of digital content. This can, for example, be useful to prove the existence of certain documents. 
+The main benefit of the timestamp is to provide a trusted timestamping service for all kinds of digital content. This can, for example, be useful to prove the existence of certain documents. 
 
 Furthermore, Starlog stores all government activities as well as token movements. Users sign all uploaded Starlog entries and therefore own these uploads. However, if they don’t share the specific public key others won’t know the owner of the data. 
 
 To connect the above interaction with the other layers of the Stars Network, the on-chain interaction fires certain events, which are then handled by the Starbridges (see [Starbridge – WebSocket Client](#starbridge)). 
 
-Additionally, Starlog provides a layer for smart contracts, which could potentially enable in the future multiple services around digital content. This can, for example, be used to develop content marketplaces for the stored unique information or to provide storage/hosting smart contracts based on the DIDs and the storage location. This essentially represents an alternative to systems like Filecoin. Smart contracts for Substrate can be developed with the ink! CLI. 
+Additionally, Starlog provides a layer for smart contracts, which could potentially enable in the future multiple services around digital content. This can, for example, be used to develop content marketplaces for the stored unique information, as well as to provide storage/hosting or validation smart contracts. Smart contracts for Substrate can be developed with the ink! CLI. 
 
 <h3 id="captain">
   Captain's Log – BigchainDB
@@ -155,6 +154,7 @@ The metadata entry is partly based on the “ERC721 Metadata JSON Schema” [\[1
 | **thumbnail**      | hash | A thumbnail of the data or file |
 | **hashes** | array | An array of the hashes, which represent the metadata |
 | **time**   | array | An array of the timestamps representing the creation or update of the metadata |
+| **storage location**   | array | An array of permanent storage locations, which ensure the availibility |
 | **filetype**      | string | The file type |
 | **similarity digest**  | string | A context-sensitive hash |
 | **additional meta** | object | Additional attributes, like for example categories, which can be defined by marketplaces. |
@@ -163,7 +163,6 @@ The similarity digest is a context sensitive hash, which allows the comparison o
 
 * unique name
 * license code
-* storage location
 
 The complete data allows for example for decentralized searchability, verifiability, near-duplicate detection and the combination of address- and name-based storage. Every Captain’s Log metadata entry must include a unique file hash, which points to a file stored on Starspace. 
 
